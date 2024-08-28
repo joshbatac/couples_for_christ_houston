@@ -9,12 +9,11 @@ app.use(cors());
 // Parse JSON bodies
 app.use(express.json());
 
+
+/*
+
 // Create MySQL connection
 const connection = mysql.createConnection({
-    host: '34.71.126.144',
-    user: 'root', 
-    password: 'Password!', 
-    database: 'josh' 
 });
 
 // Connect to MySQL
@@ -26,9 +25,11 @@ connection.connect((err) => {
     console.log('Connected to MySQL');
 });
 
+*/
+
 // Define a route
 app.get('/', (req, res) => {
-    res.send('Backend Landing');
+    res.send('Hello from backend!');
 });
 
 // Start the server

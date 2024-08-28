@@ -3,8 +3,9 @@
     <header>
       <nav>
         <ul>
-          <li><router-link to="/">Landing</router-link></li>
-          <li><router-link to="/register">Register</router-link></li>
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/about-us">About Us</router-link></li>
+          <li><router-link to="/news">News and Articles</router-link></li>
         </ul>
       </nav>
     </header>
