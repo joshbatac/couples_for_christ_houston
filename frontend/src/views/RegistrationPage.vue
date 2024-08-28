@@ -77,9 +77,31 @@ export default {
         this.members.pop();
       }
     },
-    submitForm() {
-      console.log("Form Submitted!", this.chapter, this.ministry, this.members);
-      // Handle the form submission logic here
+    async submitForm() {
+      const formData = {
+        chapter: this.chapter,
+        ministry: this.ministry,
+        //members: this.members,
+      };
+
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxbwWfQZnKtLX7SL_3HnJCyEXJielByeCjyWOUC2o5dBd7A6HoplROpLwuMSk2j0UGb/exec', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          console.log('Form Submitted and Data Added to Google Sheets!');
+        } else {
+          const errorText = await response.text();
+          console.error('Failed to submit form:', errorText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   },
 };
