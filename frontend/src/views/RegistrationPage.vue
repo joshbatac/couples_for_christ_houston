@@ -41,6 +41,7 @@
             <input type="text" id="husband-last-name" v-model="husbandLastName" />
           </div>
 
+
         </div>
 
 
@@ -64,12 +65,12 @@
         <!-- Single, Servant, or Handmaid First Name and Last Name -->
         <div class="fields-container">
           <div class="form-field half-width">
-            <label for="first-name">First Name:</label>
+            <label for="first-name">First Name: {{ firstName }}</label>
             <input type="text" id="first-name" v-model="firstName" />
           </div>
 
           <div class="form-field half-width">
-            <label for="last-name">Last Name:</label>
+            <label for="last-name">Last Name: {{ lastName }}</label>
             <input type="text" id="last-name" v-model="lastName" />
           </div>
         </div>
@@ -98,10 +99,7 @@ export default {
       ministry: 'Single',
       firstName: '',
       lastName: '',
-      husbandFirstName: '',
-      husbandLastName: '',
-      wifeFirstName: '',
-      wifeLastName: '',
+      members: [],
       loading: false,
       message: '',
       messageType: ''
@@ -110,16 +108,13 @@ export default {
   methods: {
     async submitForm() {
       const formData = {
-        chapter: this.chapter,
-        ministry: this.ministry,
         firstName: this.firstName,
         lastName: this.lastName,
-        husbandFirstName: this.husbandFirstName,
-        husbandLastName: this.husbandLastName,
-        wifeFirstName: this.wifeFirstName,
-        wifeLastName: this.wifeLastName,
-      };
+        chapter: this.chapter,
+        ministry: this.ministry,
 
+      };
+      console.log(formData)
       this.loading = true;
       this.message = '';
       this.messageType = '';
