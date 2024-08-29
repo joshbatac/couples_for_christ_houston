@@ -19,8 +19,8 @@ app.post('/submit', async (req, res) => {
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw7YEkNrFDRXUDklRyz-zcBknB0tC1HVi3x9o-1IiWPYaMzKqVPL_HIwY3mJaXrKlm8Pw/exec';
 
     const response = await axios.post(scriptUrl, {
-        firstName,
-        lastName,
+    firstName,
+    lastName,
       chapter,
       ministry,
     }, {

@@ -127,8 +127,8 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual('Husband', this.husbandFirstName, this.husbandLastName);
-          await this.submitIndividual('Wife', this.wifeFirstName, this.wifeLastName);
+          await this.submitIndividual(this.husbandFirstName, this.husbandLastName);
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName);
         } else {
           await axios.post('http://localhost:3000/submit', {
             firstName: this.firstName,
@@ -148,13 +148,12 @@ export default {
       }
     },
 
-    async submitIndividual(role, firstName, lastName) {
+    async submitIndividual(firstName, lastName) {
       await axios.post('http://localhost:3000/submit', {
         firstName,
         lastName,
         chapter: this.chapter,
         ministry: this.ministry,
-        role,
       });
     },
   },
