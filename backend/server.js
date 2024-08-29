@@ -1,38 +1,39 @@
 const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const axios = require('axios');
 const app = express();
+const cors = require('cors');
 const port = process.env.PORT || 3000;
 
-// Use CORS middleware
+app.use(bodyParser.json());
 app.use(cors());
-// Parse JSON bodies
-app.use(express.json());
 
-
-/*
-
-// Create MySQL connection
-const connection = mysql.createConnection({
-});
-
-// Connect to MySQL
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-        return;
-    }
-    console.log('Connected to MySQL');
-});
-
-*/
-
-// Define a route
 app.get('/', (req, res) => {
-    res.send('Hello from backend!');
+  res.send('Hello from backend');
 });
 
-// Start the server
+app.post('/submit', async (req, res) => {
+  try {
+    const { chapter, ministry } = req.body;
+    
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbw7YEkNrFDRXUDklRyz-zcBknB0tC1HVi3x9o-1IiWPYaMzKqVPL_HIwY3mJaXrKlm8Pw/exec';
+
+    const response = await axios.post(scriptUrl, {
+      chapter,
+      ministry,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    res.status(200).json({ status: 'success', message: 'Data added successfully' });
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.data : error.message);
+    res.status(500).json({ status: 'error', message: 'Failed to submit data' });
+  }
+});
+
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });

@@ -23,24 +23,6 @@
         </select>
       </div>
 
-      <!-- Additional Party Member Field -->
-      <div>
-        <label for="additionalMembers">Additional Party Members:</label>
-        <select id="additionalMembers" v-model="additionalMembers">
-          <option v-for="n in 11" :key="n" :value="n - 1">{{ n - 1 }}</option>
-        </select>
-      </div>
-
-      <!-- Party Member Information Fields -->
-      <div v-for="(member, index) in totalMembers" :key="index">
-        <h3>Member {{ index + 1 }}</h3>
-        <label :for="'firstName' + index">First Name:</label>
-        <input type="text" :id="'firstName' + index" v-model="member.firstName" />
-
-        <label :for="'lastName' + index">Last Name:</label>
-        <input type="text" :id="'lastName' + index" v-model="member.lastName" />
-      </div>
-
       <!-- Submit Button -->
       <button type="submit">Submit</button>
     </form>
@@ -48,59 +30,28 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'RegistrationPage',
   data() {
     return {
-      chapter: '',
+      chapter: 'Houston',
       ministry: 'Single',
-      additionalMembers: 0,
-      members: [],
     };
   },
-  computed: {
-    // Calculate the total number of members based on the selected ministry and additional members
-    totalMembers() {
-      const baseMembers = this.ministry === 'Couple' ? 2 : 1;
-      const total = baseMembers + parseInt(this.additionalMembers);
-      this.adjustMembersArray(total);
-      return this.members;
-    },
-  },
   methods: {
-    // Adjust the members array to match the total number of members
-    adjustMembersArray(total) {
-      while (this.members.length < total) {
-        this.members.push({ firstName: '', lastName: '' });
-      }
-      while (this.members.length > total) {
-        this.members.pop();
-      }
-    },
     async submitForm() {
       const formData = {
         chapter: this.chapter,
         ministry: this.ministry,
-        //members: this.members,
       };
 
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxbwWfQZnKtLX7SL_3HnJCyEXJielByeCjyWOUC2o5dBd7A6HoplROpLwuMSk2j0UGb/exec', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          console.log('Form Submitted and Data Added to Google Sheets!');
-        } else {
-          const errorText = await response.text();
-          console.error('Failed to submit form:', errorText);
-        }
+        const response = await axios.post('http://localhost:3000/submit', formData);
+        console.log('Form Submitted and Data Added to Google Sheets:', response.data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error submitting form:', error);
       }
     },
   },
