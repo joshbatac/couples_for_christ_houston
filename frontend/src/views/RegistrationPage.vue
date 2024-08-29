@@ -107,45 +107,46 @@ export default {
   },
   methods: {
     async submitForm() {
-      this.loading = true;
-      this.message = '';
-      this.messageType = '';
+    this.loading = true;
+    this.message = '';
+    this.messageType = '';
 
-      try {
-        // Submit Husband's Data
-        if (this.ministry === 'Couple') {
-          await this.submitIndividual('Husband', this.husbandFirstName, this.husbandLastName);
-          await this.submitIndividual('Wife', this.wifeFirstName, this.wifeLastName);
-        } else {
-          // Submit Single, Servant, or Handmaid Data
-          await axios.post('http://localhost:3000/submit', {
-            firstName: this.firstName,
-            lastName: this.lastName,
-            chapter: this.chapter,
-            ministry: this.ministry,
-          });
-        }
-
-        this.message = 'Registration Success!';
-        this.messageType = 'success-message';
-      } catch (error) {
-        this.message = 'Error submitting form. Please try again.';
-        this.messageType = 'error-message';
-      } finally {
-        this.loading = false;
+    try {
+      // Submit Husband's Data
+      if (this.ministry === 'Couple') {
+        await this.submitIndividual('Husband', this.husbandFirstName, this.husbandLastName);
+        await this.submitIndividual('Wife', this.wifeFirstName, this.wifeLastName);
+      } else {
+        // Submit Single, Servant, or Handmaid Data
+        await axios.post('http://localhost:3000/submit', {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          chapter: this.chapter,
+          ministry: this.ministry,
+        });
       }
-    },
 
-    async submitIndividual(role, firstName, lastName) {
-      await axios.post('http://localhost:3000/submit', {
-        firstName,
-        lastName,
-        chapter: this.chapter,
-        ministry: this.ministry,
-        role,
-      });
-    },
-  }
+      this.message = 'Registration Success!';
+      this.messageType = 'success-message';
+    } catch (error) {
+      this.message = 'Error submitting form. Please try again.';
+      this.messageType = 'error-message';
+    } finally {
+      this.loading = false;
+    }
+  },
+
+  async submitIndividual(role, firstName, lastName) {
+    await axios.post('http://localhost:3000/submit', {
+      firstName,
+      lastName,
+      chapter: this.chapter,
+      ministry: this.ministry,
+      role,
+    });
+  },
+}
+  
 };
 </script>
 
