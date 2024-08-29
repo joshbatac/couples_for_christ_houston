@@ -149,7 +149,7 @@ export default {
     },
 
     async submitIndividual(firstName, lastName) {
-      await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
+      await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
         lastName,
         chapter: this.chapter,
