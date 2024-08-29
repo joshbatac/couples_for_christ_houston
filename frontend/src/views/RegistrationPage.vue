@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
-    <h1>Register Page</h1>
-    <p>Please register by filling out the form below.</p>
+    <h1>2024 CFC Christmas Celebration!</h1>
+    <p>NOTE: Participants over 18 must submit their own form.</p>
     <form @submit.prevent="submitForm">
       <!-- Fields Container for Chapter/Area and Ministry -->
       <div class="fields-container">
@@ -29,7 +29,6 @@
 
       <!-- Conditional First Name and Last Name Fields -->
       <div v-if="ministry === 'Couple'" class="couple-fields">
-        <!-- Husband's First Name and Last Name -->
         <h2>Husband Information:</h2>
         <div class="fields-container">
           <div class="form-field half-width">
@@ -54,7 +53,6 @@
         </div>
         <br>
         <h2>Wife Information:</h2>
-        <!-- Wife's First Name and Last Name -->
         <div class="fields-container">
           <div class="form-field half-width">
             <label for="wife-first-name">First Name:</label>
@@ -79,7 +77,6 @@
       </div>
 
       <div v-else>
-        <!-- Single, Servant, or Handmaid First Name and Last Name -->
         <h2>Personal Information:</h2>
         <div class="fields-container">
           <div class="form-field half-width">
@@ -104,6 +101,32 @@
         </div>
       </div>
 
+      <h2>Additional Party Members (Under 18)       <button type="button" class="add-member-button" @click="addMember">Add Member</button>
+      </h2>
+
+      <div v-for="(member, index) in additionalMembers" :key="index" class="additional-member">
+        <div class="fields-container">
+          <div class="form-field half-width">
+            <label for="member-first-name">First Name:</label>
+            <input type="text" v-model="member.firstName" required />
+          </div>
+          <div class="form-field half-width">
+            <label for="member-last-name">Last Name:</label>
+            <input type="text" v-model="member.lastName" required />
+          </div>
+        </div>
+        <div class="fields-container radio-container">
+          <label>Member Type:</label>
+          <div class="radio-buttons">
+            <label><input type="radio" v-model="member.type" value="Kids CFC" required /> Kids CFC</label>
+            <label><input type="radio" v-model="member.type" value="Youth CFC" required /> Youth CFC</label>
+            <label><input type="radio" v-model="member.type" value="N/A" required /> N/A</label>
+          </div>
+        </div>
+        <button type="button" class="remove-member-button" @click="removeMember(index)">Remove Member</button>
+        <hr />
+      </div>
+
       <!-- Submit Button -->
       <button type="submit" :disabled="loading || !isFormValid">Submit</button>
 
@@ -115,7 +138,6 @@
     </form>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 
@@ -133,6 +155,7 @@ export default {
       wifeLastName: '',
       wifeEmail: '',
       wifePhoneNumber: '',
+      additionalMembers: [], // Array to store additional members
       loading: false,
       message: '',
       messageType: ''
@@ -153,6 +176,12 @@ export default {
       // This checks if the phone number contains only digits
       const phoneRegex = /^[0-9]{10}$/; // Adjust the regex to your phone number format needs
       return phoneRegex.test(phoneNumber);
+    },
+    addMember() {
+      this.additionalMembers.push({ firstName: '', lastName: '', type: '' });
+    },
+    removeMember(index) {
+      this.additionalMembers.splice(index, 1);
     },
     async submitForm() {
       if (!this.isFormValid) {
@@ -247,20 +276,20 @@ p {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 1.5rem; /* Add margin to create more space between fields */
+  margin-bottom: 1.5rem;
 }
 
 .fields-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem; /* Increase the gap between fields */
+  gap: 2rem;
   justify-content: center;
   width: 100%;
 }
 
 .half-width {
   flex: 1 1 45%;
-  max-width: 325px; /* Set a maximum width for the input boxes */
+  max-width: 325px;
 }
 
 .form-field label {
@@ -277,6 +306,23 @@ p {
   font-size: 1rem;
 }
 
+.radio-container {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.radio-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-buttons label {
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: #333;
+}
+
 button[type='submit'] {
   padding: 0.75rem 1.5rem;
   background-color: #007bff;
@@ -290,6 +336,27 @@ button[type='submit'] {
 button[type='submit']:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.add-member-button,
+.remove-member-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.remove-member-button {
+  background-color: #dc3545;
+}
+
+.add-member-button:hover,
+.remove-member-button:hover {
+  opacity: 0.8;
 }
 
 .loading-spinner {
@@ -310,15 +377,22 @@ button[type='submit']:disabled {
   }
 }
 
-.success-message {
-  color: green;
-  font-weight: bold;
+.message {
+  font-size: 1rem;
   margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  width: 100%;
+  text-align: center;
 }
 
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 1rem;
+.message.success {
+  background-color: #28a745;
+  color: white;
+}
+
+.message.error {
+  background-color: #dc3545;
+  color: white;
 }
 </style>
