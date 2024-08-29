@@ -130,7 +130,7 @@ export default {
           await this.submitIndividual(this.husbandFirstName, this.husbandLastName);
           await this.submitIndividual(this.wifeFirstName, this.wifeLastName);
         } else {
-          await axios.post('http://localhost:3000/submit', {
+          await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
             firstName: this.firstName,
             lastName: this.lastName,
             chapter: this.chapter,
@@ -149,7 +149,7 @@ export default {
     },
 
     async submitIndividual(firstName, lastName) {
-      await axios.post('http://localhost:3000/submit', {
+      await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
         firstName,
         lastName,
         chapter: this.chapter,
