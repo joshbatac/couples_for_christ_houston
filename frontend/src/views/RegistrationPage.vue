@@ -8,7 +8,7 @@
         <!-- Chapter/Area Field -->
         <div class="form-field half-width">
           <label for="chapter">Chapter/Area:</label>
-          <select id="chapter" v-model="chapter">
+          <select id="chapter" v-model="chapter" required>
             <option value="Austin">Austin</option>
             <option value="Dallas">Dallas</option>
             <option value="Houston">Houston</option>
@@ -18,7 +18,7 @@
         <!-- Ministry Field -->
         <div class="form-field half-width">
           <label for="ministry">Ministry:</label>
-          <select id="ministry" v-model="ministry">
+          <select id="ministry" v-model="ministry" required>
             <option value="Single">Single</option>
             <option value="Couple">Couple</option>
             <option value="Servant">Servant</option>
@@ -33,31 +33,26 @@
         <div class="fields-container">
           <div class="form-field half-width">
             <label for="husband-first-name">Husband's First Name:</label>
-            <input type="text" id="husband-first-name" v-model="husbandFirstName" />
+            <input type="text" id="husband-first-name" v-model="husbandFirstName" required />
           </div>
 
           <div class="form-field half-width">
             <label for="husband-last-name">Husband's Last Name:</label>
-            <input type="text" id="husband-last-name" v-model="husbandLastName" />
+            <input type="text" id="husband-last-name" v-model="husbandLastName" required />
           </div>
-
-
         </div>
-
-
 
         <!-- Wife's First Name and Last Name -->
         <div class="fields-container">
           <div class="form-field half-width">
             <label for="wife-first-name">Wife's First Name:</label>
-            <input type="text" id="wife-first-name" v-model="wifeFirstName" />
+            <input type="text" id="wife-first-name" v-model="wifeFirstName" required />
           </div>
 
           <div class="form-field half-width">
             <label for="wife-last-name">Wife's Last Name:</label>
-            <input type="text" id="wife-last-name" v-model="wifeLastName" />
+            <input type="text" id="wife-last-name" v-model="wifeLastName" required />
           </div>
-
         </div>
       </div>
 
@@ -65,19 +60,19 @@
         <!-- Single, Servant, or Handmaid First Name and Last Name -->
         <div class="fields-container">
           <div class="form-field half-width">
-            <label for="first-name">First Name: {{ firstName }}</label>
-            <input type="text" id="first-name" v-model="firstName" />
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" v-model="firstName" required />
           </div>
 
           <div class="form-field half-width">
-            <label for="last-name">Last Name: {{ lastName }}</label>
-            <input type="text" id="last-name" v-model="lastName" />
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" v-model="lastName" required />
           </div>
         </div>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" :disabled="loading">Submit</button>
+      <button type="submit" :disabled="loading || !isFormValid">Submit</button>
 
       <!-- Loading Spinner -->
       <div v-if="loading" class="loading-spinner"></div>
@@ -99,54 +94,70 @@ export default {
       ministry: 'Single',
       firstName: '',
       lastName: '',
-      members: [],
+      husbandFirstName: '',
+      husbandLastName: '',
+      wifeFirstName: '',
+      wifeLastName: '',
       loading: false,
       message: '',
       messageType: ''
     };
   },
-  methods: {
-    async submitForm() {
-    this.loading = true;
-    this.message = '';
-    this.messageType = '';
-
-    try {
-      // Submit Husband's Data
+  computed: {
+    isFormValid() {
+      // Basic validation for the 'Couple' ministry
       if (this.ministry === 'Couple') {
-        await this.submitIndividual('Husband', this.husbandFirstName, this.husbandLastName);
-        await this.submitIndividual('Wife', this.wifeFirstName, this.wifeLastName);
-      } else {
-        // Submit Single, Servant, or Handmaid Data
-        await axios.post('http://localhost:3000/submit', {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          chapter: this.chapter,
-          ministry: this.ministry,
-        });
+        return this.husbandFirstName && this.husbandLastName && this.wifeFirstName && this.wifeLastName;
       }
-
-      this.message = 'Registration Success!';
-      this.messageType = 'success-message';
-    } catch (error) {
-      this.message = 'Error submitting form. Please try again.';
-      this.messageType = 'error-message';
-    } finally {
-      this.loading = false;
+      // Validation for other ministries
+      return this.firstName && this.lastName;
     }
   },
+  methods: {
+    async submitForm() {
+      if (!this.isFormValid) {
+        this.message = 'Please fill out all required fields.';
+        this.messageType = 'error-message';
+        return;
+      }
 
-  async submitIndividual(role, firstName, lastName) {
-    await axios.post('http://localhost:3000/submit', {
-      firstName,
-      lastName,
-      chapter: this.chapter,
-      ministry: this.ministry,
-      role,
-    });
+      this.loading = true;
+      this.message = '';
+      this.messageType = '';
+
+      try {
+        if (this.ministry === 'Couple') {
+          await this.submitIndividual('Husband', this.husbandFirstName, this.husbandLastName);
+          await this.submitIndividual('Wife', this.wifeFirstName, this.wifeLastName);
+        } else {
+          await axios.post('http://localhost:3000/submit', {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            chapter: this.chapter,
+            ministry: this.ministry,
+          });
+        }
+
+        this.message = 'Registration Success!';
+        this.messageType = 'success-message';
+      } catch (error) {
+        this.message = 'Error submitting form. Please try again.';
+        this.messageType = 'error-message';
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async submitIndividual(role, firstName, lastName) {
+      await axios.post('http://localhost:3000/submit', {
+        firstName,
+        lastName,
+        chapter: this.chapter,
+        ministry: this.ministry,
+        role,
+      });
+    },
   },
-}
-  
 };
 </script>
 
