@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <h2>Additional Party Members (Under 18)       <button type="button" class="add-member-button" @click="addMember">Add Member</button>
+      <h2>Additional Party Members (Under 18): {{ additionalMembers }}<button type="button" class="add-member-button" @click="addMember">Add Guest</button>
       </h2>
 
       <div v-for="(member, index) in additionalMembers" :key="index" class="additional-member">
@@ -118,12 +118,12 @@
         <div class="fields-container radio-container">
           <label>Member Type:</label>
           <div class="radio-buttons">
-            <label><input type="radio" v-model="member.type" value="Kids CFC" required /> Kids CFC</label>
-            <label><input type="radio" v-model="member.type" value="Youth CFC" required /> Youth CFC</label>
-            <label><input type="radio" v-model="member.type" value="N/A" required /> N/A</label>
+            <label><input type="radio" v-model="member.type" value="Kids CFC" required />Kids CFC</label>
+            <label><input type="radio" v-model="member.type" value="Youth CFC" required />Youth CFC</label>
+            <label><input type="radio" v-model="member.type" value="Guest" required />Guest</label>
           </div>
         </div>
-        <button type="button" class="remove-member-button" @click="removeMember(index)">Remove Member</button>
+        <button type="button" class="remove-member-button" @click="removeMember(index)">Remove Guest</button>
         <hr />
       </div>
 
@@ -138,6 +138,7 @@
     </form>
   </div>
 </template>
+
 <script>
 import axios from 'axios';
 
@@ -178,7 +179,7 @@ export default {
       return phoneRegex.test(phoneNumber);
     },
     addMember() {
-      this.additionalMembers.push({ firstName: '', lastName: '', type: '' });
+      this.additionalMembers.push({ firstName: '', lastName: '', ministry: '' });
     },
     removeMember(index) {
       this.additionalMembers.splice(index, 1);
