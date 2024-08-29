@@ -30,34 +30,7 @@
       <!-- Conditional First Name and Last Name Fields -->
       <div v-if="ministry === 'Couple'" class="couple-fields">
         <!-- Husband's First Name and Last Name -->
-        <div class="fields-container">
-          <div class="form-field half-width">
-            <label for="husband-first-name">Husband's First Name:</label>
-            <input type="text" id="husband-first-name" v-model="husbandFirstName" required />
-          </div>
-
-          <div class="form-field half-width">
-            <label for="husband-last-name">Husband's Last Name:</label>
-            <input type="text" id="husband-last-name" v-model="husbandLastName" required />
-          </div>
-        </div>
-
-        <!-- Wife's First Name and Last Name -->
-        <div class="fields-container">
-          <div class="form-field half-width">
-            <label for="wife-first-name">Wife's First Name:</label>
-            <input type="text" id="wife-first-name" v-model="wifeFirstName" required />
-          </div>
-
-          <div class="form-field half-width">
-            <label for="wife-last-name">Wife's Last Name:</label>
-            <input type="text" id="wife-last-name" v-model="wifeLastName" required />
-          </div>
-        </div>
-      </div>
-
-      <div v-else>
-        <!-- Single, Servant, or Handmaid First Name and Last Name -->
+         <h2>Husband Information:</h2>
         <div class="fields-container">
           <div class="form-field half-width">
             <label for="first-name">First Name:</label>
@@ -68,6 +41,67 @@
             <label for="last-name">Last Name:</label>
             <input type="text" id="last-name" v-model="lastName" required />
           </div>
+
+          <div class="form-field half-width">
+            <label for="email">Email:</label>
+            <input type="text" id="email" v-model="email" required />
+          </div>
+          <div class="form-field half-width">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" v-model="phoneNumber" required />
+          </div>
+
+        </div>
+        <br>
+        <h2>Wife Information:</h2>
+        <!-- Wife's First Name and Last Name -->
+        <div class="fields-container">
+          <div class="form-field half-width">
+            <label for="wife-first-name">First Name:</label>
+            <input type="text" id="wife-first-name" v-model="wifeFirstName" required />
+          </div>
+
+          <div class="form-field half-width">
+            <label for="wife-last-name">Last Name:</label>
+            <input type="text" id="wife-last-name" v-model="wifeLastName" required />
+          </div>
+
+          <div class="form-field half-width">
+            <label for="email">Email:</label>
+            <input type="text" id="email" v-model="email" required />
+          </div>
+          <div class="form-field half-width">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" v-model="phoneNumber" required />
+          </div>
+
+        </div>
+      </div>
+
+      <div v-else>
+        <!-- Single, Servant, or Handmaid First Name and Last Name -->
+        <h2>Personal Information:</h2>
+        <div class="fields-container">
+          <div class="form-field half-width">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" v-model="firstName" required />
+          </div>
+
+          <div class="form-field half-width">
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" v-model="lastName" required />
+          </div>
+
+          <div class="form-field half-width">
+            <label for="email">Email:</label>
+            <input type="text" id="email" v-model="email" required />
+          </div>
+          <div class="form-field half-width">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" v-model="phoneNumber" required />
+          </div>
+
+
         </div>
       </div>
 
@@ -94,8 +128,8 @@ export default {
       ministry: 'Single',
       firstName: '',
       lastName: '',
-      husbandFirstName: '',
-      husbandLastName: '',
+      email: '',
+      phoneNumber: '',
       wifeFirstName: '',
       wifeLastName: '',
       loading: false,
@@ -107,7 +141,7 @@ export default {
     isFormValid() {
       // Basic validation for the 'Couple' ministry
       if (this.ministry === 'Couple') {
-        return this.husbandFirstName && this.husbandLastName && this.wifeFirstName && this.wifeLastName;
+        return this.firstName && this.lastName && this.wifeFirstName && this.wifeLastName;
       }
       // Validation for other ministries
       return this.firstName && this.lastName;
@@ -127,16 +161,16 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual(this.husbandFirstName, this.husbandLastName);
+          await this.submitIndividual(this.firstName, this.lastName);
           await this.submitIndividual(this.wifeFirstName, this.wifeLastName);
         } else {
           await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
             firstName: this.firstName,
-            lastName: this.lastName,
-            chapter: this.chapter,
+            lastName: this.lastName, chapter: this.chapter,
             ministry: this.ministry,
           });
         }
+
 
         this.message = 'Registration Success!';
         this.messageType = 'success-message';
