@@ -30,7 +30,7 @@
       <!-- Conditional First Name and Last Name Fields -->
       <div v-if="ministry === 'Couple'" class="couple-fields">
         <!-- Husband's First Name and Last Name -->
-         <h2>Husband Information:</h2>
+        <h2>Husband Information:</h2>
         <div class="fields-container">
           <div class="form-field half-width">
             <label for="first-name">First Name:</label>
@@ -46,11 +46,11 @@
             <label for="email">Email:</label>
             <input type="text" id="email" v-model="email" required />
           </div>
+          
           <div class="form-field half-width">
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" v-model="phoneNumber" required />
+            <input type="tel" id="phoneNumber" v-model="phoneNumber" required />
           </div>
-
         </div>
         <br>
         <h2>Wife Information:</h2>
@@ -67,14 +67,14 @@
           </div>
 
           <div class="form-field half-width">
-            <label for="email">Email:</label>
-            <input type="text" id="email" v-model="email" required />
+            <label for="wife-email">Email:</label>
+            <input type="text" id="wife-email" v-model="wifeEmail" required />
           </div>
+          
           <div class="form-field half-width">
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" v-model="phoneNumber" required />
+            <label for="wife-phoneNumber">Phone Number:</label>
+            <input type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber" required />
           </div>
-
         </div>
       </div>
 
@@ -96,12 +96,11 @@
             <label for="email">Email:</label>
             <input type="text" id="email" v-model="email" required />
           </div>
+          
           <div class="form-field half-width">
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" v-model="phoneNumber" required />
+            <input type="tel" id="phoneNumber" v-model="phoneNumber" required />
           </div>
-
-
         </div>
       </div>
 
@@ -132,6 +131,8 @@ export default {
       phoneNumber: '',
       wifeFirstName: '',
       wifeLastName: '',
+      wifeEmail: '',
+      wifePhoneNumber: '',
       loading: false,
       message: '',
       messageType: ''
@@ -148,11 +149,30 @@ export default {
     }
   },
   methods: {
+    validatePhoneNumber(phoneNumber) {
+      // This checks if the phone number contains only digits
+      const phoneRegex = /^[0-9]{10}$/; // Adjust the regex to your phone number format needs
+      return phoneRegex.test(phoneNumber);
+    },
     async submitForm() {
       if (!this.isFormValid) {
         this.message = 'Please fill out all required fields.';
         this.messageType = 'error-message';
         return;
+      }
+
+      if (!this.validatePhoneNumber(this.phoneNumber)) {
+        this.message = 'Please enter a valid 10-digit phone number.';
+        this.messageType = 'error-message';
+        return;
+      }
+
+      if (this.ministry === 'Couple') {
+        if (!this.validatePhoneNumber(this.wifePhoneNumber)) {
+          this.message = 'Please enter a valid 10-digit phone number for the wife.';
+          this.messageType = 'error-message';
+          return;
+        }
       }
 
       this.loading = true;
@@ -161,16 +181,18 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual(this.firstName, this.lastName);
-          await this.submitIndividual(this.wifeFirstName, this.wifeLastName);
+          await this.submitIndividual(this.firstName, this.lastName, this.phoneNumber, this.email);
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.wifePhoneNumber, this.wifeEmail);
         } else {
           await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
             firstName: this.firstName,
-            lastName: this.lastName, chapter: this.chapter,
+            lastName: this.lastName, 
+            chapter: this.chapter,
             ministry: this.ministry,
+            phoneNumber: this.phoneNumber, // Include phoneNumber in the payload
+            email: this.email, // Include email in the payload
           });
         }
-
 
         this.message = 'Registration Success!';
         this.messageType = 'success-message';
@@ -182,12 +204,14 @@ export default {
       }
     },
 
-    async submitIndividual(firstName, lastName) {
+    async submitIndividual(firstName, lastName, phoneNumber, email) {
       await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
         lastName,
         chapter: this.chapter,
         ministry: this.ministry,
+        phoneNumber,
+        email,
       });
     },
   },
@@ -245,70 +269,56 @@ p {
   color: #333;
 }
 
-.form-field input, .form-field select {
-  width: 100%;
+.form-field input,
+.form-field select {
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #fff;
   font-size: 1rem;
-  color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-field input:focus, .form-field select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-  outline: none;
-}
-
-button {
+button[type='submit'] {
   padding: 0.75rem 1.5rem;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1.125rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 2rem;
 }
 
-button:disabled {
-  background-color: #aaa;
+button[type='submit']:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
 .loading-spinner {
-  border: 4px solid #f3f3f3;
+  border: 4px solid rgba(0, 0, 0, 0.1);
   border-top: 4px solid #007bff;
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  margin-top: 1rem;
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .success-message {
-  color: #28a745;
+  color: green;
+  font-weight: bold;
   margin-top: 1rem;
-  font-size: 1rem;
 }
 
 .error-message {
-  color: #dc3545;
+  color: red;
+  font-weight: bold;
   margin-top: 1rem;
-  font-size: 1rem;
 }
-
 </style>
