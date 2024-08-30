@@ -104,7 +104,45 @@
         </div>
       </div>
 
-      <h2>Added Party Guest: </h2>
+      <h2><button type="button" class="add-member-button" @click="addPartyGuest">Add Party Guest</button>
+        {{ partyGuests }}
+      </h2>
+<div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
+  <div class="fields-container">
+    <div class="form-field half-width">
+      <label :for="'guest-first-name-' + index">First Name:</label>
+      <input type="text" :id="'guest-first-name-' + index" v-model="guest.firstName" required />
+    </div>
+
+    <div class="form-field half-width">
+      <label :for="'guest-last-name-' + index">Last Name:</label>
+      <input type="text" :id="'guest-last-name-' + index" v-model="guest.lastName" required />
+    </div>
+  </div>
+  
+  <div class="form-field">
+    <label>Ministry:</label>
+    <div class="radio-buttons">
+      <label>
+        <input type="radio" :name="'category-' + index" value="Youth" v-model="guest.category" />
+        Youth
+      </label>
+      <label>
+        <input type="radio" :name="'category-' + index" value="Kids" v-model="guest.category" />
+        Kids
+      </label>
+      <label>
+        <input type="radio" :name="'category-' + index" value="N/A" v-model="guest.category" />
+        N/A
+      </label>
+    </div>
+    <button type="button" class="remove-member-button" @click="removePartyGuest(index)">Remove Guest</button>
+<hr>
+  </div>
+  
+  <hr>
+</div>
+
 
 
  
@@ -137,7 +175,7 @@ export default {
       wifeLastName: '',
       wifeEmail: '',
       wifePhoneNumber: '',
-      partyGuests: '',
+      partyGuests: [],
       loading: false,
       message: '',
       messageType: ''
@@ -152,6 +190,16 @@ export default {
   methods: {
     validatePhoneNumber() {
       this.phoneNumber = this.phoneNumber.replace(/\D/g, '').slice(0, 10);
+  },
+  addPartyGuest() {
+    this.partyGuests.push({
+      firstName: '',
+      lastName: '',
+      category: 'N/A', // Default to 'N/A'
+    });
+  },
+  removePartyGuest(index) {
+    this.partyGuests.splice(index, 1);
   },
     async submitForm() {
       if (!this.isFormValid) {
@@ -169,6 +217,11 @@ export default {
           await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber); //insert wife data
         }
           await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber); //husband data if couple, otherwise personal info
+
+        for (const guest of this.partyGuests) {
+          await this.submitIndividual(guest.firstName, guest.lastName, guest.category, 'N/A', 'N/A');
+        }
+
 
         this.message = 'Registration Success!';
         this.messageType = 'success-message';
