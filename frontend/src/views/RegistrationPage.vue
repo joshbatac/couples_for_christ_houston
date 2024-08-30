@@ -105,7 +105,6 @@
       </div>
 
       <h2><button type="button" class="add-member-button" @click="addPartyGuest">Add Party Guest</button>
-        {{ partyGuests }}
       </h2>
 <div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
   <div class="fields-container">
