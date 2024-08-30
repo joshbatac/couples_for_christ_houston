@@ -11,6 +11,9 @@
       <p><strong>Deadline to RSVP:</strong> September 14, 2024</p>
       <p><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
      <br> <p>* All attendees aged 18 and above must submit their own form *</p>
+     <br>
+     <p>Current Participants: <a href="https://docs.google.com/spreadsheets/d/1tYwJBL2rclennLopqiwCO91V98Vqobops6G_oYW620I/pubhtml?gid=1980918340&single=true" target="_blank" rel="noopener noreferrer">View List</a></p>
+     <p><i>Please allow up to 5 minutes for the Particpant lists to refresh</i></p>
     </div>
 
     <button class="register-button"><router-link to="/register">Register</router-link></button>
