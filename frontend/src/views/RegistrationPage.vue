@@ -48,9 +48,12 @@
           
           <div class="form-field half-width">
             <label for="phoneNumber">Phone Number:</label>
-            <input type="tel" id="phoneNumber" v-model="phoneNumber" required />
+            <input type="text" id="phoneNumber" @input="validatePhoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
           </div>
+          
         </div>
+
+
         <br>
         <h2>Wife Information:</h2>
         <div class="fields-container">
@@ -71,7 +74,7 @@
           
           <div class="form-field half-width">
             <label for="wife-phoneNumber">Phone Number:</label>
-            <input type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber" required />
+            <input type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber"  @input="validatePhoneNumber" minlength="10" maxlength="10" required />
           </div>
         </div>
       </div>
@@ -96,39 +99,14 @@
           
           <div class="form-field half-width">
             <label for="phoneNumber">Phone Number:</label>
-            <input type="tel" id="phoneNumber" v-model="phoneNumber" required />
+            <input type="text" id="phoneNumber" @input="validatePhoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
           </div>
         </div>
       </div>
 
-      <h2>Additional Party Members (Under 18):<button type="button" class="add-member-button" @click="addMember">Add Guest</button>
-      </h2>
-
-      <div v-for="(member, index) in additionalMembers" :key="index" class="additional-member">
-        <div class="fields-container">
-          <div class="form-field half-width">
-            <label for="member-first-name">First Name:</label>
-            <input type="text" v-model="member.firstName" required />
-          </div>
-          <div class="form-field half-width">
-            <label for="member-last-name">Last Name:</label>
-            <input type="text" v-model="member.lastName" required />
-          </div>
-        </div>
-        <div class="fields-container radio-container">
-          <label>Member Type:</label>
-          <div class="radio-buttons">
-            <label><input type="radio" v-model="member.type" value="Kids CFC" required />Kids CFC</label>
-            <label><input type="radio" v-model="member.type" value="Youth CFC" required />Youth CFC</label>
-            <label><input type="radio" v-model="member.type" value="Guest" required />Guest</label>
-          </div>
-        </div>
-        <button type="button" class="remove-member-button" @click="removeMember(index)">Remove Guest</button>
-        <hr />
-      </div>
-
+ 
       <!-- Submit Button -->
-      <button type="submit" :disabled="loading || !isFormValid">Submit</button>
+      <button type="submit" :disabled="loading || !isFormValid" >Submit</button>
 
       <!-- Loading Spinner -->
       <div v-if="loading" class="loading-spinner"></div>
@@ -156,7 +134,6 @@ export default {
       wifeLastName: '',
       wifeEmail: '',
       wifePhoneNumber: '',
-      additionalMembers: [], // Array to store additional members
       loading: false,
       message: '',
       messageType: ''
@@ -164,45 +141,19 @@ export default {
   },
   computed: {
     isFormValid() {
-      // Basic validation for the 'Couple' ministry
-      if (this.ministry === 'Couple') {
-        return this.firstName && this.lastName && this.wifeFirstName && this.wifeLastName;
-      }
-      // Validation for other ministries
+      if (this.ministry === 'Couple') { return this.firstName && this.lastName && this.wifeFirstName && this.wifeLastName; }
       return this.firstName && this.lastName;
     }
   },
   methods: {
-    validatePhoneNumber(phoneNumber) {
-      // This checks if the phone number contains only digits
-      const phoneRegex = /^[0-9]{10}$/; // Adjust the regex to your phone number format needs
-      return phoneRegex.test(phoneNumber);
-    },
-    addMember() {
-      this.additionalMembers.push({ firstName: '', lastName: '', ministry: '' });
-    },
-    removeMember(index) {
-      this.additionalMembers.splice(index, 1);
-    },
+    validatePhoneNumber() {
+      this.phoneNumber = this.phoneNumber.replace(/\D/g, '').slice(0, 10);
+  },
     async submitForm() {
       if (!this.isFormValid) {
         this.message = 'Please fill out all required fields.';
         this.messageType = 'error-message';
         return;
-      }
-
-      if (!this.validatePhoneNumber(this.phoneNumber)) {
-        this.message = 'Please enter a valid 10-digit phone number.';
-        this.messageType = 'error-message';
-        return;
-      }
-
-      if (this.ministry === 'Couple') {
-        if (!this.validatePhoneNumber(this.wifePhoneNumber)) {
-          this.message = 'Please enter a valid 10-digit phone number for the wife.';
-          this.messageType = 'error-message';
-          return;
-        }
       }
 
       this.loading = true;
@@ -211,18 +162,9 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual(this.firstName, this.lastName, this.ministry, this.phoneNumber, this.email);
-          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry, this.wifePhoneNumber, this.wifeEmail);
-        } else {
-          await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
-            firstName: this.firstName,
-            lastName: this.lastName, 
-            chapter: this.chapter,
-            ministry: this.ministry,
-            phoneNumber: this.phoneNumber, // Include phoneNumber in the payload
-            email: this.email, // Include email in the payload
-          });
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber); //insert wife data
         }
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber); //husband data if couple, otherwise personal info
 
         this.message = 'Registration Success!';
         this.messageType = 'success-message';
@@ -233,15 +175,14 @@ export default {
         this.loading = false;
       }
     },
-
-    async submitIndividual(firstName, lastName, ministry, phoneNumber, email) {
+    async submitIndividual(firstName, lastName, ministry, email, phoneNumber) {
       await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
         lastName,
-        chapter: this.chapter,
+        chapter: this.chapter, //chapter is the same for everyone in form
         ministry,
-        phoneNumber,
         email,
+        phoneNumber
       });
     },
   },

@@ -9,20 +9,23 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('Hello from backend! new test');
+  res.send('Hello from backend! 11:10pm changes');
 });
 
 app.post('/submit', async (req, res) => {
   try {
-    const {firstName, lastName, chapter, ministry } = req.body;
+    const {firstName, lastName, chapter, ministry, email, phoneNumber } = req.body;
     
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw7YEkNrFDRXUDklRyz-zcBknB0tC1HVi3x9o-1IiWPYaMzKqVPL_HIwY3mJaXrKlm8Pw/exec';
 
     const response = await axios.post(scriptUrl, {
     firstName,
     lastName,
-      chapter,
-      ministry,
+    chapter,
+    ministry,
+    email,
+    phoneNumber
+
     }, {
       headers: {
         'Content-Type': 'application/json',
