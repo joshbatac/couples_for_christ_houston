@@ -16,7 +16,6 @@
             <option value="West">West</option>
             <option value="Austin">Austin</option>
             <option value="San Antonio">San Antonio</option>
-            <option value="Guest">Guest</option>
           </select>
         </div>
 
