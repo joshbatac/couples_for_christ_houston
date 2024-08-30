@@ -104,6 +104,9 @@
         </div>
       </div>
 
+      <h2>Added Party Guest: </h2>
+
+
  
       <!-- Submit Button -->
       <button type="submit" :disabled="loading || !isFormValid" >Submit</button>
@@ -134,6 +137,7 @@ export default {
       wifeLastName: '',
       wifeEmail: '',
       wifePhoneNumber: '',
+      partyGuests: '',
       loading: false,
       message: '',
       messageType: ''
@@ -141,8 +145,8 @@ export default {
   },
   computed: {
     isFormValid() {
-      if (this.ministry === 'Couple') { return this.firstName && this.lastName && this.wifeFirstName && this.wifeLastName; }
-      return this.firstName && this.lastName;
+      if (this.ministry === 'Couple') { return this.wifeFirstName && this.wifeLastName && this.wifeEmail && this.wifePhoneNumber && this.firstName && this.lastName && this.email && this.phoneNumber; }
+      return this.firstName && this.lastName && this.email && this.phoneNumber;
     }
   },
   methods: {
