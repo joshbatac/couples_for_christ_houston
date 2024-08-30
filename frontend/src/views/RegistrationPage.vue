@@ -7,11 +7,15 @@
       <div class="fields-container">
         <!-- Chapter/Area Field -->
         <div class="form-field half-width">
-          <label for="chapter">Chapter/Area:</label>
+          <label for="chapter">CFC South Texas Unit</label>
           <select id="chapter" v-model="chapter" required>
+            <option value="North">North</option>
+            <option value="South">South</option>
+            <option value="Southwest">Southwest</option>
+            <option value="West">West</option>
             <option value="Austin">Austin</option>
-            <option value="Dallas">Dallas</option>
-            <option value="Houston">Houston</option>
+            <option value="San Antonio">San Antonio</option>
+            <option value="Guest">Guest</option>
           </select>
         </div>
 
@@ -23,6 +27,7 @@
             <option value="Couple">Couple</option>
             <option value="Servant">Servant</option>
             <option value="Handmaid">Handmaid</option>
+            <option value="Guest">Guest</option>
           </select>
         </div>
       </div>
@@ -131,8 +136,8 @@
         Kids
       </label>
       <label>
-        <input type="radio" :name="'category-' + index" value="N/A" v-model="guest.category" />
-        N/A
+        <input type="radio" :name="'category-' + index" value="Guest" v-model="guest.category" />
+        Guest
       </label>
     </div>
     <button type="button" class="remove-member-button" @click="removePartyGuest(index)">Remove Guest</button>
@@ -145,11 +150,13 @@
 
 
  
-      <!-- Submit Button -->
-      <button type="submit" :disabled="loading || !isFormValid" >Submit</button>
+<div class="submit-container">
+  <!-- Submit Button -->
+  <button type="submit" :disabled="loading || !isFormValid">Submit</button>
 
-      <!-- Loading Spinner -->
-      <div v-if="loading" class="loading-spinner"></div>
+  <!-- Loading Spinner -->
+  <div v-if="loading" class="loading-spinner"></div>
+</div>
 
       <!-- Success/Failure Messages -->
       <div v-if="message" :class="messageType">{{ message }}</div>
@@ -179,6 +186,11 @@ export default {
       message: '',
       messageType: ''
     };
+  }, 
+  watch: {
+    ministry() {
+      this.clearFields();
+    }
   },
   computed: {
     isFormValid() {
@@ -187,6 +199,17 @@ export default {
     }
   },
   methods: {
+    clearFields() {
+      this.firstName = '';
+      this.lastName = '';
+      this.email = '';
+      this.phoneNumber = '';
+      this.wifeFirstName = '';
+      this.wifeLastName = '';
+      this.wifeEmail = '';
+      this.wifePhoneNumber = '';
+      this.partyGuests = [];
+    },
     validatePhoneNumber() {
       this.phoneNumber = this.phoneNumber.replace(/\D/g, '').slice(0, 10);
   },
@@ -194,7 +217,7 @@ export default {
     this.partyGuests.push({
       firstName: '',
       lastName: '',
-      category: 'N/A', // Default to 'N/A'
+      category: 'Guest',
     });
   },
   removePartyGuest(index) {
@@ -202,8 +225,8 @@ export default {
   },
     async submitForm() {
       if (!this.isFormValid) {
-        this.message = 'Please fill out all required fields.';
         this.messageType = 'error-message';
+        this.message = 'Please fill out all required fields.';
         return;
       }
 
@@ -213,25 +236,30 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber); //insert wife data
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "Husband of " + this.wifeFirstName); //husband data if couple, otherwise personal info
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName); //insert wife data
+        } else {
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A"); //husband data if couple, otherwise personal info
         }
-          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber); //husband data if couple, otherwise personal info
 
         for (const guest of this.partyGuests) {
-          await this.submitIndividual(guest.firstName, guest.lastName, guest.category, 'N/A', 'N/A');
+          await this.submitIndividual(guest.firstName, guest.lastName, guest.category, 'N/A', 'N/A', "Guest of " + this.firstName + " " + this.lastName);
         }
 
-
-        this.message = 'Registration Success!';
         this.messageType = 'success-message';
+        this.message = 'Registration Success! Redirecting to news...';
+        setTimeout(() => {
+          this.$router.push('/news');
+        }, 3000);
+
       } catch (error) {
-        this.message = 'Error submitting form. Please try again.';
         this.messageType = 'error-message';
+        this.message = 'Error submitting form. Please try again.';
       } finally {
         this.loading = false;
       }
     },
-    async submitIndividual(firstName, lastName, ministry, email, phoneNumber) {
+    async submitIndividual(firstName, lastName, ministry, email, phoneNumber,relation) {
       const currentDate = new Date().toISOString().split('T')[0];
       await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
@@ -240,7 +268,8 @@ export default {
         ministry,
         email,
         phoneNumber,
-        date: currentDate
+        date: currentDate,
+        relation
       });
     },
   },
@@ -352,11 +381,17 @@ button[type='submit']:disabled {
 
 .remove-member-button {
   background-color: #dc3545;
+  width: 25%;
 }
 
 .add-member-button:hover,
 .remove-member-button:hover {
   opacity: 0.8;
+}
+.submit-container {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+  gap: 1rem; /* Optional: Adds space between the button and spinner */
 }
 
 .loading-spinner {
