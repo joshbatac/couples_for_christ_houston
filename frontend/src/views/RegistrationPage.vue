@@ -232,13 +232,15 @@ export default {
       }
     },
     async submitIndividual(firstName, lastName, ministry, email, phoneNumber) {
+      const currentDate = new Date().toISOString().split('T')[0];
       await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
         lastName,
         chapter: this.chapter, //chapter is the same for everyone in form
         ministry,
         email,
-        phoneNumber
+        phoneNumber,
+        date: currentDate
       });
     },
   },
