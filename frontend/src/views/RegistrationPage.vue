@@ -1,6 +1,7 @@
 <template>
-  <div class="form-container">
-    <h1>2024 CFC Christmas Celebration!</h1>
+  <div class="form-container">  
+    <br><br><br><br><br><br><br><br><br><br><br>
+      <h1>2024 CFC Christmas Party RSVP</h1>
     <p>NOTE: Participants over 18 must submit their own form.</p>
     <form @submit.prevent="submitForm">
       <!-- Fields Container for Chapter/Area and Ministry -->
@@ -292,7 +293,7 @@ export default {
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: black;
 }
 
 p {
@@ -300,6 +301,7 @@ p {
   color: #666;
   margin-bottom: 2rem;
 }
+
 
 .form-field {
   display: flex;
@@ -320,6 +322,21 @@ p {
   flex: 1 1 45%;
   max-width: 325px;
 }
+.form-container {
+  max-width: 75%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-image: url('../assets/christmas-banner-2.png'); /* Replace with your image URL */
+  background-size: 100%; /* Cover the entire container */
+  background-position: top center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repeating the image */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 .form-field label {
   font-weight: 600;
