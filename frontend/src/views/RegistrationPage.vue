@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <h2>Additional Party Members (Under 18): {{ additionalMembers }}<button type="button" class="add-member-button" @click="addMember">Add Guest</button>
+      <h2>Additional Party Members (Under 18):<button type="button" class="add-member-button" @click="addMember">Add Guest</button>
       </h2>
 
       <div v-for="(member, index) in additionalMembers" :key="index" class="additional-member">
@@ -211,8 +211,8 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual(this.firstName, this.lastName, this.phoneNumber, this.email);
-          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.wifePhoneNumber, this.wifeEmail);
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry, this.phoneNumber, this.email);
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry, this.wifePhoneNumber, this.wifeEmail);
         } else {
           await axios.post('https://cfc-hou-back-383f93f5502b.herokuapp.com/submit', {
             firstName: this.firstName,
@@ -234,12 +234,12 @@ export default {
       }
     },
 
-    async submitIndividual(firstName, lastName, phoneNumber, email) {
+    async submitIndividual(firstName, lastName, ministry, phoneNumber, email) {
       await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
         lastName,
         chapter: this.chapter,
-        ministry: this.ministry,
+        ministry,
         phoneNumber,
         email,
       });
