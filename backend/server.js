@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.post('/submit', async (req, res) => {
   try {
-    const {firstName, lastName, chapter, ministry, email, phoneNumber, date, relation } = req.body;
+    const {firstName, lastName, chapter, ministry, email, phoneNumber, date, relation, age} = req.body;
     
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw7YEkNrFDRXUDklRyz-zcBknB0tC1HVi3x9o-1IiWPYaMzKqVPL_HIwY3mJaXrKlm8Pw/exec';
 
@@ -26,7 +26,8 @@ app.post('/submit', async (req, res) => {
     email,
     phoneNumber,
     date,
-    relation
+    relation,
+    age
 
     }, {
       headers: {
