@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios, { formToJSON } from 'axios';
 
 export default {
   name: 'RegistrationPage',
@@ -241,8 +241,9 @@ export default {
 
       try {
         if (this.ministry === 'Couple') {
-          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "Husband of " + this.wifeFirstName, 'Adult'); //husband data if couple, otherwise personal info
-          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName, 'Adult'); //insert wife data
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "Husband of " + this.wifeFirstName + 
+        " " + this.wifeLastName, 'Adult'); //husband data if couple, otherwise personal info
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName + " " + this.lastName,  'Adult'); //insert wife data
         } else {
           await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A", 'Adult'); //husband data if couple, otherwise personal info
         }
@@ -284,7 +285,7 @@ export default {
   max-width: 75%;
   margin: 0 auto;
   padding: 2rem;
-  background-image: url('../assets/christmas-banner.png');
+  background-image: url('../assets/christmas-banner-2.png');
   background-size: contain; /* Keeps the image the same size */
   background-position: center top;
   background-repeat: no-repeat;
