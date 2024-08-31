@@ -169,9 +169,9 @@
 </template>
 
 <script>
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 
-export default {
+export default { 
   name: 'RegistrationPage',
   data() {
     return {
