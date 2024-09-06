@@ -161,7 +161,7 @@
 
       <div class="center-align">
         <div class="submit-button-wrapper">
-          <button class="waves-effect waves-light btn-large" type="submit" :disabled="loading || !isFormValid">Submit</button>
+          <button class="btn-large" type="submit" :disabled="loading || !isFormValid">Submit</button>
           <div v-if="loading" class="preloader-wrapper small active">
             <div class="spinner-layer spinner-blue-only">
               <div class="circle-clipper left">
