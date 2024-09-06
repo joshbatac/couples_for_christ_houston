@@ -173,11 +173,17 @@
           </div>
 
           <div class="field">
-            <label class="label">Ministry</label>
-            <div class="control">
-              <input class="input" :id="'guest-ministry-' + index" v-model="guest.category" required />
-            </div>
-          </div>
+  <label class="label">Ministry</label>
+  <div class="control">
+    <div class="select is-fullwidth">
+      <select :id="'guest-ministry-' + index" v-model="guest.category" required>
+        <option value="Kids">Kids</option>
+        <option value="Youth">Youth</option>
+        <option value="Guest">Guest</option>
+      </select>
+    </div>
+  </div>
+</div>
 
           <div class="field left-justified">
             Fee: ${{ calculateFee(guest) }}.00
