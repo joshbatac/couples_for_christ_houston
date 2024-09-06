@@ -10,28 +10,27 @@
       <p class="custom-paragraph"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
       <p class ="center-align">* All attendees ages 18 and above must submit their own form *</p>
 <form @submit.prevent="submitForm" class="col s12">
+  <h6>Chapter & Ministry</h6>
       <!-- Fields Container for Chapter/Area and Ministry -->
       <div class="row">
-        <div class="input-field col s12 m6">
-      <select v-model="chapter" required>
-        <option value="" disabled selected>Select Chapter/Area</option>
+      <div class="input-field col s12 m6">
+      <select v-model="chapter" id="chapter" required>
         <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
           {{ option.label }}
         </option>
       </select>
-      <label>Chapter/Area</label>
     </div>
 
     <!-- Ministry Dropdown -->
-          <div class="input-field col s12 m6">
-            <select v-model="ministry" required>
-              <option value="" disabled selected>Choose your Ministry</option>
-              <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
-                {{ option.label }}
-              </option>
-            </select>
-            <label>Ministry</label>
-          </div>
+    <div class="input-field col s12 m6">
+      <label for="ministry"></label>
+      <select v-model="ministry" id="ministry" required>
+        <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+
 
         <div class="input-field col s12">
           <input type="text" id="household-leader" v-model="householdLeader" required />
@@ -352,35 +351,30 @@ export default {
 </script>
 
 <style scoped>
+
+/* General Container Styles */
 .container {
   padding: 5px;
 }
 
-.guest-fields-container {
-  margin-top: 20px;
-}
-
-.submit-button-wrapper {
-  margin-top: 20px;
-}
-
-/* Custom Dropdown Button Styles */
-.dropdown-trigger {
-  background-color: #1976d2; /* Blue color */
-  color: #fff;
+/* Custom Dropdown Styles */
+select {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
   border-radius: 4px;
-  padding: 0 1rem;
-  height: 2.5rem;
-  line-height: 2.5rem;
-  text-align: center;
-  width: 100%; /* Adjust this to match the width of the dropdown */
+  width: 100%;
+  box-shadow: none;
 }
 
-/* Dropdown Menu Styles */
+select:focus {
+  border-color: #1976d2; /* Custom focus color */
+  outline: none;
+}
+
 .dropdown-content {
-  width: 200px; /* Fixed width for the dropdown menu */
   border-radius: 4px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .dropdown-content li > a {
@@ -391,7 +385,6 @@ export default {
   background-color: #f0f0f0; /* Light gray on hover */
 }
 
-/* Add padding and border radius to make dropdown look like standard dropdown */
 .dropdown-content li {
   padding: 0.5rem;
 }
@@ -400,18 +393,16 @@ export default {
   border-top: 1px solid #ddd; /* Divider line between items */
 }
 
+/* Input Field Styles */
 .input-field {
   margin-bottom: 1.5rem;
 }
 
-
-.input-field {
-  margin-bottom: 1.5rem;
-}
-
+/* Guest Fields Styles */
 .guest-fields-container {
-  margin-bottom: 1rem;
+  margin-top: 20px;
 }
+
 .guest-fields {
   display: flex;
   align-items: center; /* Vertically center align items */
@@ -428,14 +419,37 @@ export default {
   margin-left: 1rem;
 }
 
+/* Custom Paragraph Styles */
 .custom-paragraph {
   margin-bottom: 5px; /* Adjust the value as needed */
 }
 
+/* Custom Theme Styles */
 .custom-theme {
   color: red; /* Set the text color to red */
   font-size: 1.2em; /* Adjust the size as needed; 1.2em is smaller than the default h3 size */
   margin-bottom: 10px; /* Optional: Adjust margin as needed */
+}
+
+/* Submit Button Styles */
+.submit-button-wrapper {
+  margin-top: 20px;
+}
+
+.submit-button-wrapper .btn-large {
+  background-color: #1976d2; /* Blue color */
+}
+
+/* Spinner Styles */
+.preloader-wrapper {
+  margin-top: 10px;
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 600px) {
+  .guest-fields {
+    flex-direction: column; /* Stack fields vertically on small screens */
+  }
 }
 
 </style>
