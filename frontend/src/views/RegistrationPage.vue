@@ -1,9 +1,14 @@
 <template>
   <div class="container">
-    <h1 class="center-align">2024 CFC Christmas Party RSVP</h1>
-    <p class="center-align">NOTE: Participants over 18 must submit their own form.</p>
-
-    <form @submit.prevent="submitForm" class="col s12">
+    <h3 class="center-align">2024 CFC Christmas Party Registration</h3>
+    <h3 class="custom-theme"><i>Theme: Be the light of the World</i></h3>
+    <p class="custom-paragraph"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
+      <p class="custom-paragraph"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
+      <p class="custom-paragraph"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
+      <p class="custom-paragraph"><strong>Deadline to RSVP:</strong> September 15, 2024</p>
+      <p class="custom-paragraph"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
+      <p class ="center-align">* All attendees ages 18 and above must submit their own form *</p>
+<form @submit.prevent="submitForm" class="col s12">
       <!-- Fields Container for Chapter/Area and Ministry -->
       <div class="row">
         <div class="input-field col s12 m6">
@@ -417,6 +422,16 @@ export default {
 
 .remove-btn {
   margin-left: 1rem;
+}
+
+.custom-paragraph {
+  margin-bottom: 5px; /* Adjust the value as needed */
+}
+
+.custom-theme {
+  color: red; /* Set the text color to red */
+  font-size: 1.2em; /* Adjust the size as needed; 1.2em is smaller than the default h3 size */
+  margin-bottom: 10px; /* Optional: Adjust margin as needed */
 }
 
 </style>
