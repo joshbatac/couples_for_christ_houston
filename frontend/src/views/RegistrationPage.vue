@@ -5,8 +5,6 @@
 
     <form @submit.prevent="submitForm" class="col s12">
       <!-- Fields Container for Chapter/Area and Ministry -->
-      <h2 class="center-align">Chapter and Ministry Information: </h2>
-
       <div class="row">
         <div class="input-field col s12 m6">
       <select v-model="chapter" required>
