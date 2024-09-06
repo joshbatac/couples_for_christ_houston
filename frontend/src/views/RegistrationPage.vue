@@ -1,4 +1,5 @@
 <template>
+  <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <div class="container">
     <h3 class="center-align">2024 CFC Christmas Party Registration</h3>
     <h3 class="custom-theme"><i>Theme: Be the light of the World</i></h3>
@@ -22,7 +23,7 @@
     </div>
 
     <!-- Ministry Dropdown -->
-          <div class="input-field col s6">
+          <div class="input-field col s12 s6">
             <select v-model="ministry" required>
               <option value="" disabled selected>Choose your Ministry</option>
               <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
