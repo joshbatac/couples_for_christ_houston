@@ -9,10 +9,11 @@
       <p class="custom-paragraph"><strong>Deadline to RSVP:</strong> September 15, 2024</p>
       <p class="custom-paragraph"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
       <p class ="center-align">* All attendees ages 18 and above must submit their own form *</p>
+      
 <form @submit.prevent="submitForm" class="col s12">
   <h6>Chapter & Ministry</h6>
       <!-- Fields Container for Chapter/Area and Ministry -->
-      <div class="row">
+
       <div class="input-field col s12 m6">
       <select v-model="chapter" id="chapter" required>
         <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
@@ -20,6 +21,7 @@
         </option>
       </select>
     </div>
+
 
     <!-- Ministry Dropdown -->
     <div class="input-field col s12 m6">
@@ -37,7 +39,7 @@
           <label for="household-leader">Household Leader:</label>
         </div>
           
-    </div>
+
 
 
 
