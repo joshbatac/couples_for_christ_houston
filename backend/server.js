@@ -9,12 +9,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('Hello from backend! 4:20pm changes');
+  res.send('Hello from backend! 3pm changes');
 });
 
 app.post('/submit', async (req, res) => {
   try {
-    const {firstName, lastName, chapter, ministry, email, phoneNumber, date, relation, age} = req.body;
+    const {firstName, lastName, chapter, ministry, email, phoneNumber, date, relation, age, fee, householdLeader} = req.body;
     
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw7YEkNrFDRXUDklRyz-zcBknB0tC1HVi3x9o-1IiWPYaMzKqVPL_HIwY3mJaXrKlm8Pw/exec';
 
@@ -27,7 +27,9 @@ app.post('/submit', async (req, res) => {
     phoneNumber,
     date,
     relation,
-    age
+    age,
+    fee,
+    householdLeader
 
     }, {
       headers: {

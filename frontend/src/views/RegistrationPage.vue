@@ -113,6 +113,17 @@
         </div>
       </div>
 
+
+      <!-- fee stuff -->
+
+      <div v-if="ministry === 'Couples for Christ'">
+        Fee: $30.00
+      </div>
+
+      <div else>
+        Fee: $15.00
+      </div>
+
       <h2 class="left-align">
         <a class="btn" @click="addPartyGuest">+ Guest</a>
       </h2>
@@ -139,8 +150,8 @@
             <label :for="'guest-ministry-' + index">Ministry:</label>
           </div>
 
-          <div class="fee-display">
-          Fee: ${{ calculateFee(guest.age) }}.00
+          <div class="fee-display" >
+          Fee: ${{ calculateFee(guest) }}.00
         </div>
           <a class="btn red remove-btn" @click="removePartyGuest(index)">- Guest</a>
 
@@ -260,16 +271,19 @@ export default {
       lastName: '',
       category: '',
       age: '',
+      fee: 0
     });
   },
   removePartyGuest(index) {
     this.partyGuests.splice(index, 1);
   },
-  calculateFee(age) {
-      if (age <= 5) return '0';
-      if (age >= 6 && age <= 12) return '5';
-      if (age >= 13 && age <= 17) return '10';
-      return '0';
+  calculateFee(guest) {
+      var age = guest.age;
+      if (age <= 5) guest.fee = 0;
+      if (age >= 6 && age <= 12) return guest.fee = 5;
+      if (age >= 13 && age <= 17) return guest.fee = 10;
+      
+      return guest.fee;
     },
     async submitForm() {
       if (!this.isFormValid) {
@@ -285,14 +299,14 @@ export default {
       try {
         if (this.ministry === 'Couple') {
           await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "Husband of " + this.wifeFirstName + 
-        " " + this.wifeLastName, 'Adult'); //husband data if couple, otherwise personal info
-          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName + " " + this.lastName,  'Adult'); //insert wife data
+        " " + this.wifeLastName, 'Adult', 15); //husband data if couple, otherwise personal info
+          await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName + " " + this.lastName,  'Adult', 15); //insert wife data
         } else {
-          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A", 'Adult');
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A", 'Adult', 15);
         }
 
         for (const guest of this.partyGuests) {
-          await this.submitIndividual(guest.firstName, guest.lastName, guest.category, 'N/A', 'N/A', "Guest of " + this.firstName + " " + this.lastName, guest.age);
+          await this.submitIndividual(guest.firstName, guest.lastName, guest.category, 'N/A', 'N/A', "Guest of " + this.firstName + " " + this.lastName, guest.age, guest.fee);
         }
 
         this.messageType = 'success-message';
@@ -309,7 +323,7 @@ export default {
         this.loading = false;
       }
     },
-    async submitIndividual(firstName, lastName, ministry, email, phoneNumber, relation, age) {
+    async submitIndividual(firstName, lastName, ministry, email, phoneNumber, relation, age, fee) {
       const currentDate = new Date().toISOString().split('T')[0];
       await axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit', {
         firstName,
@@ -320,7 +334,9 @@ export default {
         phoneNumber,
         date: currentDate,
         relation,
-        age
+        age,
+        fee,
+        householdLeader: this.householdLeader    
       });
     },
   },
