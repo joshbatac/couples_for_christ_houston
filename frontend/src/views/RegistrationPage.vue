@@ -1,190 +1,200 @@
 <template>
-  <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <div class="container">
-    <h3 class="center-align">2024 CFC Christmas Party Registration</h3>
-    <h3 class="custom-theme"><i>Theme: Be the light of the World</i></h3>
-    <p class="custom-paragraph"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
-      <p class="custom-paragraph"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
-      <p class="custom-paragraph"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
-      <p class="custom-paragraph"><strong>Deadline to RSVP:</strong> September 15, 2024</p>
-      <p class="custom-paragraph"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
-      <p class ="center-align">* All attendees ages 18 and above must submit their own form *</p>
-      
-<form @submit.prevent="submitForm" class="col s12">
-  <h6>Chapter & Ministry</h6>
-      <!-- Fields Container for Chapter/Area and Ministry -->
-      <div>
-      <select v-model="chapter" id="chapter" required>
-        <option value="North" selected>North</option>
-        <option value="South">South</option>
-        <option value="Southwest">Southwest</option>
-        <option value="West">West</option>
-        <option value="Austin">Austin</option>
-        <option value="San Antonio">San Antonio</option>
-        <option value="Guest">Guest</option>
-      </select>
-    </div>
+    <h1 class="title has-text-centered">2024 CFC Christmas Party Registration</h1>
+    <h3 class="has-text-danger has-text-centered"><i>Theme: Be the light of the World</i></h3>
+    <p class="left-justified"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
+    <p class="left-justified"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
+    <p class="left-justified"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
+    <p class="left-justified"><strong>Deadline to RSVP:</strong> September 15, 2024</p>
+    <p class="left-justified"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
 
-    <!-- Ministry Dropdown -->
-    <div class="input-field col s12 m6">
-      <label for="ministry"></label>
-      <select v-model="ministry" id="ministry" required>
-        <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
-          {{ option.label }}
-        </option>
-      </select>
-    </div>
+    <p class="has-text-centered"><i>* All attendees ages 18 and above must submit their own form *</i></p>
 
-
-        <div class="input-field col s12">
-          <input type="text" id="household-leader" v-model="householdLeader" required />
-          <label for="household-leader">Household Leader:</label>
-        </div>
-          
-
-
-
-
-
-      <!-- Conditional First Name and Last Name Fields -->
-      <div v-if="ministry === 'Couples for Christ'">
-        <h3 class="left-align">Husband Information:</h3>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input type="text" id="first-name" v-model="firstName" required />
-            <label for="first-name">First Name:</label>
-          </div>
-
-          <div class="input-field col s12 m6">
-            <input type="text" id="last-name" v-model="lastName" required />
-            <label for="last-name">Last Name:</label>
-          </div>
-
-          <div class="input-field col s12 m6">
-            <input type="email" id="email" v-model="email" required />
-            <label for="email">Email:</label>
-          </div>
-          
-          <div class="input-field col s12 m6">
-            <input type="tel" id="phoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
-            <label for="phoneNumber">Phone Number:</label>
-          </div>
-        </div>
-
-        <br>
-        <h3 class="left-align">Wife Information:</h3>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input type="text" id="wife-first-name" v-model="wifeFirstName" required />
-            <label for="wife-first-name">First Name:</label>
-          </div>
-
-          <div class="input-field col s12 m6">
-            <input type="text" id="wife-last-name" v-model="wifeLastName" required />
-            <label for="wife-last-name">Last Name:</label>
-          </div>
-
-          <div class="input-field col s12 m6">
-            <input type="email" id="wife-email" v-model="wifeEmail" required />
-            <label for="wife-email">Email:</label>
-          </div>
-          
-          <div class="input-field col s12 m6">
-            <input type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber" minlength="10" maxlength="10" required />
-            <label for="wife-phoneNumber">Phone Number:</label>
-          </div>
-        </div>
-      </div>
-
-      <div v-else>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input type="text" id="first-name" v-model="firstName" required />
-            <label for="first-name">First Name:</label>
-          </div>
-
-          <div class="input-field col s12 m6">
-            <input type="text" id="last-name" v-model="lastName" required />
-            <label for="last-name">Last Name:</label>
-          </div>
-
-          <div class="input-field col s12 m6">
-            <input type="email" id="email" v-model="email" required />
-            <label for="email">Email:</label>
-          </div>
-          
-          <div class="input-field col s12 m6">
-            <input type="tel" id="phoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
-            <label for="phoneNumber">Phone Number:</label>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- fee stuff -->
-
-      <div v-if="ministry === 'Couples for Christ'">
-        Fee: $30.00
-      </div>
-
-      <div v-else>
-        Fee: $15.00
-      </div>
-
-      <h2 class="left-align">
-        <a class="btn" @click="addPartyGuest">+ Guest</a>
-      </h2>
-
-      <div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
-        <div class="guest-fields">
-          <div class="input-field">
-            <input type="text" :id="'guest-first-name-' + index" v-model="guest.firstName" required />
-            <label :for="'guest-first-name-' + index">First Name:</label>
-          </div>
-
-          <div class="input-field">
-            <input type="text" :id="'guest-last-name-' + index" v-model="guest.lastName" required />
-            <label :for="'guest-last-name-' + index">Last Name:</label>
-          </div>
-
-          <div class="input-field">
-            <input type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" max="17" required />
-            <label :for="'guest-age-' + index">Age:</label>
-          </div>
-
-          <div class="input-field">
-            <input type="text" :id="'guest-ministry-' + index" v-model="guest.category" required />
-            <label :for="'guest-ministry-' + index">Ministry:</label>
-          </div>
-
-          <div class="fee-display" >
-          Fee: ${{ calculateFee(guest) }}.00
-        </div>
-          <a class="btn red remove-btn" @click="removePartyGuest(index)">- Guest</a>
-
-      </div>
-
-    </div>
-
-      <div class="center-align">
-        <div class="submit-button-wrapper">
-          <button class="btn-large" type="submit" :disabled="loading || !isFormValid">Submit</button>
-          <div v-if="loading" class="preloader-wrapper small active">
-            <div class="spinner-layer spinner-blue-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
+    <form @submit.prevent="submitForm">
+      <div class="field">
+            <label class="label">Chapter</label>
+            <div class="">
+              <div class="select is-fullwidth">
+                <select v-model="chapter" id="chapter" required>
+                  <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
+                    {{ option.label }}
+                  </option>
+                </select>
               </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
+
+
+
+          <div class="field">
+            <label class="label">Ministry</label>
+            <div class="">
+              <div class="select is-fullwidth">
+                <select v-model="ministry" id="ministry" required>
+                  <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
+                    {{ option.label }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="field">
+        <label class="label">Household Leader</label>
+        <div class="control">
+          <input class="input" type="text" id="household-leader" v-model="householdLeader" required />
+        </div>
+      </div>
+
+      <div v-if="ministry === 'Couples for Christ'">
+        <h3 class="title is-4">Husband Information:</h3>
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <input class="input" type="text" id="first-name" v-model="firstName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input class="input" type="text" id="last-name" v-model="lastName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" id="email" v-model="email" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Phone Number</label>
+          <div class="control">
+            <input class="input" type="tel" id="phoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
+          </div>
+        </div>
+
+        <h3 class="title is-4">Wife Information:</h3>
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <input class="input" type="text" id="wife-first-name" v-model="wifeFirstName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input class="input" type="text" id="wife-last-name" v-model="wifeLastName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" id="wife-email" v-model="wifeEmail" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Phone Number</label>
+          <div class="control">
+            <input class="input" type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber" minlength="10" maxlength="10" required />
+          </div>
+        </div>
+      </div>
+
+      <div v-else>
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <input class="input" type="text" id="first-name" v-model="firstName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input class="input" type="text" id="last-name" v-model="lastName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" id="email" v-model="email" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Phone Number</label>
+          <div class="control">
+            <input class="input" type="tel" id="phoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
+          </div>
+        </div>
+      </div>
+
+      <div v-if="ministry === 'Couples for Christ'" class="left-justified">
+        Fee: $30.00
+      </div>
+
+      <div v-else class="left-justified">
+        Fee: $15.00
+      </div>
+
+      <h2 class="title is-4 has-text-left">
+        <a class="button is-primary" @click="addPartyGuest">+ Guest</a>
+      </h2>
+
+      <div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
+        <div class="guest-fields box">
+          <div class="field">
+            <label class="label">First Name</label>
+            <div class="control">
+              <input class="input" :id="'guest-first-name-' + index" v-model="guest.firstName" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+              <input class="input" :id="'guest-last-name-' + index" v-model="guest.lastName" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Age</label>
+            <div class="control">
+              <input class="input" type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" max="17" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Ministry</label>
+            <div class="control">
+              <input class="input" :id="'guest-ministry-' + index" v-model="guest.category" required />
+            </div>
+          </div>
+
+          <div class="field left-justified">
+            Fee: ${{ calculateFee(guest) }}.00
+          </div>
+          <a class="button is-danger is-small" @click="removePartyGuest(index)">- Guest</a>
+        </div>
+      </div>
+
+      <div class="has-text-centered">
+        <div class="field">
+          <button class="button is-large is-primary" type="submit" :disabled="loading || !isFormValid">Submit</button>
+        </div>
+        <div v-if="loading" class="has-text-centered">
+          <div class="loader"></div>
+        </div>
+      </div>
 
       <div v-if="message" :class="messageType">{{ message }}</div>
     </form>
@@ -355,105 +365,88 @@ export default {
 </script>
 
 <style scoped>
-
-/* General Container Styles */
+/* General Styles */
 .container {
-  padding: 5px;
+  padding: 2rem;
 }
 
-/* Custom Dropdown Styles */
-select {
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
+/* Header and Paragraph Styling */
+h3.has-text-centered {
+  margin-bottom: 1rem;
+}
+
+p.has-text-centered {
+  margin: 0.5rem 0;
+}
+
+/* Form Field Styles */
+.field {
+  margin-bottom: 1rem;
+}
+
+/* Input and Select Box Styles */
+.input,
+.select {
   width: 100%;
-  box-shadow: none;
+  box-sizing: border-box;
 }
 
-select:focus {
-  border-color: #1976d2; /* Custom focus color */
-  outline: none;
+/* Ensure Drop-down Boxes Are The Same Size */
+.select {
+  width: calc(50% - 0.5rem); /* Adjust width as needed */
 }
 
-.dropdown-content {
-  border-radius: 4px;
-  background-color: #fff;
+/* Align Input and Select Boxes on the Same Row */
+.is-half {
+  display: inline-block;
+  width: calc(50% - 0.5rem);
 }
 
-.dropdown-content li > a {
-  color: #000;
-}
-
-.dropdown-content li > a:hover {
-  background-color: #f0f0f0; /* Light gray on hover */
-}
-
-.dropdown-content li {
-  padding: 0.5rem;
-}
-
-.dropdown-content li + li {
-  border-top: 1px solid #ddd; /* Divider line between items */
-}
-
-/* Input Field Styles */
-.input-field {
-  margin-bottom: 1.5rem;
+.is-full {
+  width: 100%;
 }
 
 /* Guest Fields Styles */
 .guest-fields-container {
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .guest-fields {
-  display: flex;
-  align-items: center; /* Vertically center align items */
-  flex-wrap: wrap; /* Allow wrapping if there’s not enough space */
-  margin-bottom: 10px; /* Add space between guests */
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #f5f5f5;
 }
 
-.guest-fields .input-field {
-  flex: 1;
-  min-width: 150px;
+/* Fee Display */
+.has-text-centered {
+  margin: 1rem 0;
 }
 
-.remove-btn {
-  margin-left: 1rem;
+.button.is-primary {
+  margin-top: 1rem;
 }
 
-/* Custom Paragraph Styles */
-.custom-paragraph {
-  margin-bottom: 5px; /* Adjust the value as needed */
+/* Loader Styles */
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
 }
 
-/* Custom Theme Styles */
-.custom-theme {
-  color: red; /* Set the text color to red */
-  font-size: 1.2em; /* Adjust the size as needed; 1.2em is smaller than the default h3 size */
-  margin-bottom: 10px; /* Optional: Adjust margin as needed */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* Submit Button Styles */
-.submit-button-wrapper {
-  margin-top: 20px;
+/* Success and Error Messages */
+.success-message {
+  color: #4CAF50;
 }
 
-.submit-button-wrapper .btn-large {
-  background-color: #1976d2; /* Blue color */
+.error-message {
+  color: #f44336;
 }
-
-/* Spinner Styles */
-.preloader-wrapper {
-  margin-top: 10px;
-}
-
-/* Responsive Adjustments */
-@media only screen and (max-width: 600px) {
-  .guest-fields {
-    flex-direction: column; /* Stack fields vertically on small screens */
-  }
-}
-
 </style>
