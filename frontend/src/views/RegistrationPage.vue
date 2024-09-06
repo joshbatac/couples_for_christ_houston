@@ -14,29 +14,27 @@
 
     <form @submit.prevent="submitForm">
       <div class="field">
-            <label class="label">Chapter</label>
-            <div class="">
-              <div class="select is-fullwidth">
-                <select v-model="chapter" id="chapter" required>
-                  <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
-                    {{ option.label }}
-                  </option>
-                </select>
-              </div>
+        <label class="label">Chapter</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select v-model="chapter" id="chapter" required>
+              <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-
-
-          <div class="field">
-            <label class="label">Ministry</label>
-            <div class="">
-              <div class="select is-fullwidth">
-                <select v-model="ministry" id="ministry" required>
-                  <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
-                    {{ option.label }}
-                  </option>
-                </select>
-              </div>
-            </div>
+      <div class="field">
+        <label class="label">Ministry</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select v-model="ministry" id="ministry" required>
+              <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
@@ -384,26 +382,18 @@ p.has-text-centered {
   margin-bottom: 1rem;
 }
 
-/* Input and Select Box Styles */
+/* Set width of all form elements to 80% of the page width */
 .input,
 .select {
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+
 }
 
-/* Ensure Drop-down Boxes Are The Same Size */
-.select {
-  width: calc(50% - 0.5rem); /* Adjust width as needed */
-}
-
-/* Align Input and Select Boxes on the Same Row */
-.is-half {
-  display: inline-block;
-  width: calc(50% - 0.5rem);
-}
-
-.is-full {
-  width: 100%;
+/* Align the form fields to be centered within the container */
+.control {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Guest Fields Styles */
