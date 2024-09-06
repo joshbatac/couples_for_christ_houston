@@ -146,6 +146,8 @@
 
         <div class="input-field col s12">
           <span>Ministry:</span>
+
+          
           <div class="input-field col s12">
             <p>
               <label>
@@ -308,7 +310,11 @@ export default {
         }
 
         this.messageType = 'success-message';
-        this.message = 'Registration Success!';
+        this.message = 'Registration Success! Redirecting to News...';
+        setTimeout(() => {
+        this.$router.push('/news');
+      }, 3000);
+
 
       } catch (error) {
         this.messageType = 'error-message';
