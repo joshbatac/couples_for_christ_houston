@@ -28,18 +28,17 @@
       </div>
 
       <div class="field">
-        <label class="label">Ministry</label>
-        <div class="control">
-          <div class="select is-fullwidth">
-            <select v-model="ministry" id="ministry" required>
-              <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
-                {{ option.label }}
-              </option>
-            </select>
-          </div>
-        </div>
+    <label class="label">Ministry</label>
+    <div class="control">
+      <div class="select is-fullwidth">
+        <select v-model="ministry" id="ministry" @change="changeTotal" required>
+          <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
       </div>
-
+    </div>
+  </div>
       <div class="field">
         <label class="label">Household Leader</label>
         <div class="control">
@@ -193,8 +192,9 @@
       </div>
 
       <div class="has-text-centered">
+        Total Fees: ${{this.total}}.00
         <div class="field">
-          <button class="button is-large is-primary" type="submit" :disabled="loading || !isFormValid">Submit</button>
+  <button class="button is-large is-primary" type="submit" :disabled="loading || !isFormValid">Submit</button>
         </div>
         <div v-if="loading" class="has-text-centered">
           <div class="loader"></div>
@@ -249,7 +249,8 @@ export default {
       partyGuests: [],
       loading: false,
       message: '',
-      messageType: ''
+      messageType: '',
+      total: 15,
     };
   }, 
   watch: {
@@ -270,6 +271,13 @@ export default {
     }
   },
   methods: {
+    changeTotal() {
+      if (this.ministry === 'Couples for Christ') {
+        this.total = 30;
+      } else {
+        this.total = 15;
+      }
+    },
     clearFields() {
       this.firstName = '';
       this.lastName = '';
@@ -298,9 +306,11 @@ export default {
       age: '',
       fee: 0
     });
+    this.total +=5;
   },
   removePartyGuest(index) {
     this.partyGuests.splice(index, 1);
+    this.total -=5;
   },
   calculateFee(guest) {
       var age = guest.age;
