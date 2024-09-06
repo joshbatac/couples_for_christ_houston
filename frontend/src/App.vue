@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <header>
-      <nav>
-        <ul>
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/about-us">About Us</router-link></li>
-          <li><router-link to="/news">News and Articles</router-link></li>
-        </ul>
+      <nav class="blue darken-3">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul class="right hide-on-med-and-down">
+              <li><router-link to="/" class="white-text">Home</router-link></li>
+              <li><router-link to="/about-us" class="white-text">About Us</router-link></li>
+              <li><router-link to="/news" class="white-text">News and Articles</router-link></li>
+            </ul>
+          </div>
+        </div>
       </nav>
     </header>
-    <main>
+    <main class="container">
       <router-view />
     </main>
   </div>
@@ -22,7 +27,10 @@ export default {
 </script>
 
 <style>
-/* Import the Roboto font */
+/* Import Materialize CSS */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css');
+
+/* Import Roboto font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 /* Global Styles */
@@ -34,30 +42,12 @@ body {
   background-color: #f4f4f4;
 }
 
-header {
-  background-color: #004080; 
-  padding: 1rem;
+nav {
+
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  padding: 0;
-  margin: 0;
-}
-
-nav ul li {
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-  color: #ffffff; /* White text for links */
-}
-
-a:hover {
-  color: #b3c6ff; /* Light Blue on hover */
+nav .brand-logo {
+  font-size: 1.5rem;
 }
 
 main {

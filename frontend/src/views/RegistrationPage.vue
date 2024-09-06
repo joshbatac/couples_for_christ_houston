@@ -1,127 +1,139 @@
 <template>
-  <div class="form-container">  
-    <h1>2024 CFC Christmas Party RSVP</h1>
-    <p>NOTE: Participants over 18 must submit their own form.</p>
-    <form @submit.prevent="submitForm">
+  <div class="container">
+    <h1 class="center-align">2024 CFC Christmas Party RSVP</h1>
+    <p class="center-align">NOTE: Participants over 18 must submit their own form.</p>
+    <form @submit.prevent="submitForm" class="col s12">
       <!-- Fields Container for Chapter/Area and Ministry -->
-      <div class="fields-container">
+      <div class="row">
         <!-- Chapter/Area Field -->
-        <div class="form-field large-width">
-          <label for="chapter">CFC South Texas Unit</label>
+        <div class="input-field col s12 m6">
           <select id="chapter" v-model="chapter" required>
+            <option value="" disabled>Select Chapter/Area</option>
             <option value="North">North</option>
             <option value="South">South</option>
             <option value="Southwest">Southwest</option>
             <option value="West">West</option>
             <option value="Austin">Austin</option>
             <option value="San Antonio">San Antonio</option>
+            <option value="Guest">Guest</option>
           </select>
+          <label for="chapter">CFC South Texas Unit</label>
         </div>
 
         <!-- Ministry Field -->
-        <div class="form-field large-width">
-          <label for="ministry">Ministry:</label>
+        <div class="input-field col s12 m6">
           <select id="ministry" v-model="ministry" required>
-            <option value="Single">Single</option>
-            <option value="Couple">Couple</option>
-            <option value="Servant">Servant</option>
-            <option value="Handmaid">Handmaid</option>
+            <option value="" disabled>Select Ministry</option>
+            <option value="Single">Single for Christ</option>
+            <option value="Youth">Youth for Christ</option>
+            <option value="Couple">Couples for Christ </option>
+            <option value="Servant">Servant of the Lord</option>
+            <option value="Handmaid">Handmaid of the Lord</option>
             <option value="Guest">Guest</option>
           </select>
+          <label for="ministry">Ministry:</label>
         </div>
       </div>
 
+      <div class="input-field col s12 m6">
+          <input type="text" id="household-leader" v-model="householdLeader" required />
+          <label for="household-leader">Household Leader:</label>
+      </div>
+
+      
+
       <!-- Conditional First Name and Last Name Fields -->
-      <div v-if="ministry === 'Couple'" class="couple-fields">
-        <h2>Husband Information:</h2>
-        <div class="fields-container">
-          <div class="form-field small-width">
-            <label for="first-name">First Name:</label>
+      <div v-if="ministry === 'Couple'">
+        <h2 class="center-align">Husband Information:</h2>
+        <div class="row">
+          <div class="input-field col s12 m6">
             <input type="text" id="first-name" v-model="firstName" required />
+            <label for="first-name">First Name:</label>
           </div>
 
-          <div class="form-field small-width">
-            <label for="last-name">Last Name:</label>
+          <div class="input-field col s12 m6">
             <input type="text" id="last-name" v-model="lastName" required />
+            <label for="last-name">Last Name:</label>
           </div>
 
-          <div class="form-field small-width">
+          <div class="input-field col s12 m6">
+            <input type="email" id="email" v-model="email" required />
             <label for="email">Email:</label>
-            <input type="text" id="email" v-model="email" required />
           </div>
           
-          <div class="form-field small-width">
+          <div class="input-field col s12 m6">
+            <input type="tel" id="phoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" @input="validatePhoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
           </div>
         </div>
 
         <br>
-        <h2>Wife Information:</h2>
-        <div class="fields-container">
-          <div class="form-field small-width">
-            <label for="wife-first-name">First Name:</label>
+        <h2 class="center-align">Wife Information:</h2>
+        <div class="row">
+          <div class="input-field col s12 m6">
             <input type="text" id="wife-first-name" v-model="wifeFirstName" required />
+            <label for="wife-first-name">First Name:</label>
           </div>
 
-          <div class="form-field small-width">
-            <label for="wife-last-name">Last Name:</label>
+          <div class="input-field col s12 m6">
             <input type="text" id="wife-last-name" v-model="wifeLastName" required />
+            <label for="wife-last-name">Last Name:</label>
           </div>
 
-          <div class="form-field small-width">
+          <div class="input-field col s12 m6">
+            <input type="email" id="wife-email" v-model="wifeEmail" required />
             <label for="wife-email">Email:</label>
-            <input type="text" id="wife-email" v-model="wifeEmail" required />
           </div>
           
-          <div class="form-field small-width">
+          <div class="input-field col s12 m6">
+            <input type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber" minlength="10" maxlength="10" required />
             <label for="wife-phoneNumber">Phone Number:</label>
-            <input type="tel" id="wife-phoneNumber" v-model="wifePhoneNumber" @input="validatePhoneNumber" minlength="10" maxlength="10" required />
           </div>
         </div>
       </div>
 
       <div v-else>
-        <h2>Personal Information:</h2>
-        <div class="fields-container">
-          <div class="form-field small-width">
-            <label for="first-name">First Name:</label>
+        <h2 class="center-align">Personal Information:</h2>
+        <div class="row">
+          <div class="input-field col s12 m6">
             <input type="text" id="first-name" v-model="firstName" required />
+            <label for="first-name">First Name:</label>
           </div>
 
-          <div class="form-field small-width">
-            <label for="last-name">Last Name:</label>
+          <div class="input-field col s12 m6">
             <input type="text" id="last-name" v-model="lastName" required />
+            <label for="last-name">Last Name:</label>
           </div>
 
-          <div class="form-field small-width">
+          <div class="input-field col s12 m6">
+            <input type="email" id="email" v-model="email" required />
             <label for="email">Email:</label>
-            <input type="text" id="email" v-model="email" required />
           </div>
           
-          <div class="form-field small-width">
+          <div class="input-field col s12 m6">
+            <input type="tel" id="phoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" @input="validatePhoneNumber" v-model="phoneNumber" minlength="10" maxlength="10" required />
           </div>
         </div>
       </div>
 
-      <h2><button type="button" class="add-member-button" @click="addPartyGuest">Add Party Guest</button></h2>
+      <h2 class="center-align">
+        <a class="waves-effect waves-light btn" @click="addPartyGuest">Add Party Guest</a>
+      </h2>
 
       <div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
-        <div class="fields-container">
-          <div class="form-field small-width">
-            <label :for="'guest-first-name-' + index">First Name:</label>
+        <div class="row">
+          <div class="input-field col s12 m6">
             <input type="text" :id="'guest-first-name-' + index" v-model="guest.firstName" required />
+            <label :for="'guest-first-name-' + index">First Name:</label>
           </div>
 
-          <div class="form-field small-width">
-            <label :for="'guest-last-name-' + index">Last Name:</label>
+          <div class="input-field col s12 m6">
             <input type="text" :id="'guest-last-name-' + index" v-model="guest.lastName" required />
+            <label :for="'guest-last-name-' + index">Last Name:</label>
           </div>
 
-          <div class="form-field narrow-width">
-            <label :for="'guest-age' + index">Age:</label>
+          <div class="input-field col s12 m6">
             <input 
               type="number" 
               :id="'guest-age' + index" 
@@ -130,38 +142,54 @@
               max="17" 
               required 
             />
+            <label :for="'guest-age' + index">Age:</label>
           </div>
         </div>
 
-        <div class="form-field ">
-          <label>Ministry:</label>
-          <div class="radio-buttons">
-            <label>
-              <input type="radio" :name="'category-' + index" value="Youth" v-model="guest.category" />
-              Youth
-            </label>
-            <label>
-              <input type="radio" :name="'category-' + index" value="Kids" v-model="guest.category" />
-              Kids
-            </label>
-            <label>
-              <input type="radio" :name="'category-' + index" value="Guest" v-model="guest.category" />
-              Guest
-            </label>
+        <div class="input-field col s12">
+          <span>Ministry:</span>
+          <div class="input-field col s12">
+            <p>
+              <label>
+                <input type="radio" :name="'category-' + index" value="Youth" v-model="guest.category" />
+                <span>Youth</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="radio" :name="'category-' + index" value="Kids" v-model="guest.category" />
+                <span>Kids</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="radio" :name="'category-' + index" value="Guest" v-model="guest.category" />
+                <span>Guest</span>
+              </label>
+            </p>
           </div>
-          <button type="button" class="remove-member-button" @click="removePartyGuest(index)">Remove Guest</button>
+          <a class="waves-effect waves-light btn red" @click="removePartyGuest(index)">Remove Guest</a>
         </div>
-
       </div>
 
-
-
-      <div class="submit-container">
-  <div class="submit-button-wrapper">
-    <button type="submit" :disabled="loading || !isFormValid">Submit</button>
-    <div v-if="loading" class="loading-spinner"></div>
-  </div>
-</div>
+      <div class="center-align">
+        <div class="submit-button-wrapper">
+          <button class="waves-effect waves-light btn-large" type="submit" :disabled="loading || !isFormValid">Submit</button>
+          <div v-if="loading" class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div v-if="message" :class="messageType">{{ message }}</div>
     </form>
@@ -245,7 +273,7 @@ export default {
         " " + this.wifeLastName, 'Adult'); //husband data if couple, otherwise personal info
           await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName + " " + this.lastName,  'Adult'); //insert wife data
         } else {
-          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A", 'Adult'); //husband data if couple, otherwise personal info
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A", 'Adult');
         }
 
         for (const guest of this.partyGuests) {
@@ -281,205 +309,15 @@ export default {
 </script>
 
 <style scoped>
-.form-container {
-  max-width: 75%;
-  margin: 0 auto;
-  padding: 2rem;
-  background-image: url('../assets/christmas-banner-2.png');
-  background-size: contain; /* Keeps the image the same size */
-  background-position: center top;
-  background-repeat: no-repeat;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8); /* Optional: adds a white overlay to soften the background */
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: black;
-}
-
-p {
-  font-size: 1.125rem;
-  color: #666;
-  margin-bottom: 2rem;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 1.5rem;
-}
-
-.fields-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  width: 100%;
-}
-
-.large-width {
-  flex: 1 1 60%;
-  max-width: 400px;
-}
-
-.small-width {
-  flex: 1 1 30%;
-  max-width: 200px;
-}
-
-.narrow-width {
-  flex: 1 1 20%;
-  max-width: 100px;
-}
-
-.form-field label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-.form-field input,
-.form-field select {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.radio-container {
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
-.radio-buttons {
-  display: flex;
-  gap: 1rem;
-}
-
-.radio-buttons label {
-  font-weight: 400;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-button[type='submit'] {
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: white;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: block;
-  margin: 2rem auto 0;
-}
-
-button[type='submit']:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-button[type='submit']:hover:enabled {
-  background-color: #0056b3;
-}
-
-.loading-spinner {
-  width: 30px;
-  height: 30px;
-  border: 4px solid #ccc;
-  border-top: 4px solid #007bff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.add-member-button {
-  padding: 0.75rem 1.5rem;
-  background-color: #28a745;
-  color: white;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.3s ease;
-  display: block;
-  margin: 0 auto;
-}
-
-.add-member-button:hover {
-  background-color: #218838;
-}
-
-.remove-member-button {
-  padding: 0.5rem 1rem;
-  background-color: #dc3545;
-  color: white;
-  font-size: 0.875rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background-color 0.3s ease;
-  width: 26%;
-  align-self: center;
-}
-
-.remove-member-button:hover {
-  background-color: #c82333;
+.container {
+  padding: 20px;
 }
 
 .guest-fields-container {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-}
-
-.guest-fields-container:not(:last-child) {
-  margin-bottom: 1.5rem;
-}
-
-.submit-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 2rem;
+  margin-top: 20px;
 }
 
 .submit-button-wrapper {
-  position: relative;
+  margin-top: 20px;
 }
-
-.message {
-  margin-top: 1rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.success-message {
-  color: #28a745;
-}
-
-.error-message {
-  color: #dc3545;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 </style>
