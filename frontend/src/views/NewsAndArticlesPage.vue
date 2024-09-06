@@ -48,4 +48,32 @@ export default {
   text-decoration: underline;
 }
 
+.register-button {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+
+.register-button:active {
+  background-color: #333;
+  color: #ccc;
+  border-color: #ccc;
+}
+
+.register-button:focus {
+  outline: none;
+}
 </style>
