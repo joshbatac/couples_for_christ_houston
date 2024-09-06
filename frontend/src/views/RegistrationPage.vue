@@ -13,15 +13,17 @@
 <form @submit.prevent="submitForm" class="col s12">
   <h6>Chapter & Ministry</h6>
       <!-- Fields Container for Chapter/Area and Ministry -->
-
-      <div class="input-field col s12 m6">
+      <div>
       <select v-model="chapter" id="chapter" required>
-        <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
-          {{ option.label }}
-        </option>
+        <option value="North" selected>North</option>
+        <option value="South">South</option>
+        <option value="Southwest">Southwest</option>
+        <option value="West">West</option>
+        <option value="Austin">Austin</option>
+        <option value="San Antonio">San Antonio</option>
+        <option value="Guest">Guest</option>
       </select>
     </div>
-
 
     <!-- Ministry Dropdown -->
     <div class="input-field col s12 m6">
@@ -191,13 +193,13 @@
 
 <script>
 import axios from 'axios';
-import M from 'materialize-css';
+//import M from 'materialize-css';
 export default { 
   name: 'RegistrationPage',
   mounted() {
     // Initialize Materialize dropdowns
-    var elems1 = document.querySelectorAll('select');
-    M.FormSelect.init(elems1, {});
+    //var elems1 = document.querySelectorAll('select');
+   // M.FormSelect.init(elems1, {});
   },
   data() {
     return {
@@ -241,8 +243,8 @@ export default {
     },
     ministryOptions() {
     this.$nextTick(() => {
-      const elems = document.querySelectorAll('select');
-      M.FormSelect.init(elems);
+      //const elems = document.querySelectorAll('select');
+      //M.FormSelect.init(elems);
     });
   }
   },
