@@ -3,46 +3,36 @@
     <h1 class="center-align">2024 CFC Christmas Party RSVP</h1>
     <p class="center-align">NOTE: Participants over 18 must submit their own form.</p>
 
-
-
-
     <form @submit.prevent="submitForm" class="col s12">
       <!-- Fields Container for Chapter/Area and Ministry -->
       <h2 class="center-align">Chapter and Ministry Information: </h2>
 
       <div class="row">
-        <!-- Chapter Dropdown Trigger -->
         <div class="input-field col s12 m6">
-          <a class="dropdown-trigger btn" href="#" data-target="dropdown-chapter">
-            {{ chapter || 'Select Chapter/Area' }}
-          </a>
-          <ul id="dropdown-chapter" class="dropdown-content">
-            <li v-for="chapterOption in chapterOptions" :key="chapterOption.value">
-              <a @click="selectChapter(chapterOption.value)">{{ chapterOption.label }}</a>
-            </li>
-          </ul>
-        </div>
+      <select v-model="chapter" required>
+        <option value="" disabled selected>Select Chapter/Area</option>
+        <option v-for="option in chapterOptions" :key="option.value" :value="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <label>Chapter/Area</label>
+    </div>
 
-        <!-- Ministry Dropdown Trigger -->
-        <div class="input-field col s12 m6">
-          <a class="dropdown-trigger btn" href="#" data-target="dropdown-ministry">
-            {{ ministry || 'Select Ministry' }}
-          </a>
-          <ul id="dropdown-ministry" class="dropdown-content">
-            <li v-for="ministryOption in ministryOptions" :key="ministryOption.value">
-              <a @click="selectMinistry(ministryOption.value)">{{ ministryOption.label }}</a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-
-      
+    <!-- Ministry Dropdown -->
+          <div class="input-field col s6">
+            <select v-model="ministry" required>
+              <option value="" disabled selected>Choose your Ministry</option>
+              <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+            <label>Ministry</label>
+          </div>
+        </div>  
 
       <!-- Conditional First Name and Last Name Fields -->
-      <div v-if="ministry === 'Couple'">
-        <h2 class="center-align">Husband Information:</h2>
+      <div v-if="ministry === 'Couples for Christ'">
+        <h3 class="left-align">Husband Information:</h3>
         <div class="row">
           <div class="input-field col s12 m6">
             <input type="text" id="first-name" v-model="firstName" required />
@@ -66,7 +56,7 @@
         </div>
 
         <br>
-        <h2 class="center-align">Wife Information:</h2>
+        <h3 class="left-align">Wife Information:</h3>
         <div class="row">
           <div class="input-field col s12 m6">
             <input type="text" id="wife-first-name" v-model="wifeFirstName" required />
@@ -91,7 +81,6 @@
       </div>
 
       <div v-else>
-        <h2 class="center-align">Personal Information:</h2>
         <div class="row">
           <div class="input-field col s12 m6">
             <input type="text" id="first-name" v-model="firstName" required />
@@ -115,62 +104,35 @@
         </div>
       </div>
 
-      <h2 class="center-align">
-        <a class="btn" @click="addPartyGuest">Add Party Guest</a>
+      <h2 class="left-align">
+        <a class="btn" @click="addPartyGuest">+ Guest</a>
       </h2>
 
       <div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
-        <div class="row">
-          <div class="input-field col s12 m6">
+        <div class="guest-fields">
+          <div class="input-field">
             <input type="text" :id="'guest-first-name-' + index" v-model="guest.firstName" required />
             <label :for="'guest-first-name-' + index">First Name:</label>
           </div>
 
-          <div class="input-field col s12 m6">
+          <div class="input-field">
             <input type="text" :id="'guest-last-name-' + index" v-model="guest.lastName" required />
             <label :for="'guest-last-name-' + index">Last Name:</label>
           </div>
 
-          <div class="input-field col s12 m6">
-            <input 
-              type="number" 
-              :id="'guest-age' + index" 
-              v-model="guest.age" 
-              min="1" 
-              max="17" 
-              required 
-            />
-            <label :for="'guest-age' + index">Age:</label>
+          <div class="input-field">
+            <input type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" max="17" required />
+            <label :for="'guest-age-' + index">Age:</label>
           </div>
-        </div>
 
-        <div class="input-field col s12">
-          <span>Ministry:</span>
-
-          
-          <div class="input-field col s12">
-            <p>
-              <label>
-                <input type="radio" :name="'category-' + index" value="Youth" v-model="guest.category" />
-                <span>Youth</span>
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="radio" :name="'category-' + index" value="Kids" v-model="guest.category" />
-                <span>Kids</span>
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="radio" :name="'category-' + index" value="Guest" v-model="guest.category" />
-                <span>Guest</span>
-              </label>
-            </p>
-          </div>
-          <a class="btn red" @click="removePartyGuest(index)">Remove Guest</a>
+          <div class="fee-display">
+          Fee: ${{ calculateFee(guest.age) }}.00
         </div>
+          <a class="btn red remove-btn" @click="removePartyGuest(index)">- Guest</a>
+
       </div>
+
+    </div>
 
       <div class="center-align">
         <div class="submit-button-wrapper">
@@ -206,6 +168,9 @@ export default {
     // Initialize Materialize dropdowns
     const elems = document.querySelectorAll('.dropdown-trigger');
     M.Dropdown.init(elems, {});
+
+    var elems1 = document.querySelectorAll('select');
+    M.FormSelect.init(elems1, {});
   },
   data() {
     return {
@@ -285,6 +250,12 @@ export default {
   removePartyGuest(index) {
     this.partyGuests.splice(index, 1);
   },
+  calculateFee(age) {
+      if (age <= 5) return '0';
+      if (age >= 6 && age <= 12) return '5';
+      if (age >= 13 && age <= 17) return '10';
+      return '0';
+    },
     async submitForm() {
       if (!this.isFormValid) {
         this.messageType = 'error-message';
@@ -343,7 +314,7 @@ export default {
 
 <style scoped>
 .container {
-  padding: 20px;
+  padding: 5px;
 }
 
 .guest-fields-container {
@@ -398,4 +369,25 @@ export default {
 .input-field {
   margin-bottom: 1.5rem;
 }
+
+.guest-fields-container {
+  margin-bottom: 1rem;
+}
+
+.guest-fields {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.guest-fields .input-field {
+  flex: 1;
+  min-width: 150px;
+}
+
+.remove-btn {
+  margin-left: 1rem;
+}
+
 </style>
