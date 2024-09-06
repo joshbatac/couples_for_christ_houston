@@ -120,7 +120,7 @@
         Fee: $30.00
       </div>
 
-      <div else>
+      <div v-else>
         Fee: $15.00
       </div>
 
@@ -240,7 +240,7 @@ export default {
   },
   computed: {
     isFormValid() {
-      if (this.ministry === 'Couple') { return this.wifeFirstName && this.wifeLastName && this.wifeEmail && this.wifePhoneNumber && this.firstName && this.lastName && this.email && this.phoneNumber; }
+      if (this.ministry === 'Couples for Christ') { return this.wifeFirstName && this.wifeLastName && this.wifeEmail && this.wifePhoneNumber && this.firstName && this.lastName && this.email && this.phoneNumber; }
       return this.firstName && this.lastName && this.email && this.phoneNumber;
     }
   },
@@ -297,7 +297,7 @@ export default {
       this.messageType = '';
 
       try {
-        if (this.ministry === 'Couple') {
+        if (this.ministry === 'Couples for Christ') {
           await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "Husband of " + this.wifeFirstName + 
         " " + this.wifeLastName, 'Adult', 15); //husband data if couple, otherwise personal info
           await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName + " " + this.lastName,  'Adult', 15); //insert wife data
