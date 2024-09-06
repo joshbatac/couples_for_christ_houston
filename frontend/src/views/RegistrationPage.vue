@@ -177,8 +177,8 @@
   <div class="control">
     <div class="select is-fullwidth">
       <select :id="'guest-ministry-' + index" v-model="guest.category" required>
-        <option value="Kids">Kids</option>
-        <option value="Youth">Youth</option>
+        <option value="Kids">Kids for Christ</option>
+        <option value="Youth">Youth for Christ</option>
         <option value="Guest">Guest</option>
       </select>
     </div>
