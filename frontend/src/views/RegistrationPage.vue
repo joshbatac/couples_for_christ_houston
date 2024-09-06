@@ -3,7 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <div class="container">
     <h1 class="title has-text-centered">2024 CFC Christmas Party Registration</h1>
-    <h3 class="has-text-danger has-text-centered"><i>Theme: Be the light of the World</i></h3>
+    <hr>
+    <h2 class="has-text-danger has-text-centered subtitle"><i>Theme: Be the light of the World</i></h2>
     <p class="left-justified"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
     <p class="left-justified"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
     <p class="left-justified"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
@@ -369,6 +370,9 @@ export default {
 }
 
 /* Header and Paragraph Styling */
+h1 {
+  margin-bottom: px;
+}
 h3.has-text-centered {
   margin-bottom: 1rem;
 }
