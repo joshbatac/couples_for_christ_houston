@@ -280,9 +280,10 @@ export default {
   calculateFee(guest) {
       var age = guest.age;
       if (age <= 5) guest.fee = 0;
-      if (age >= 6 && age <= 12) return guest.fee = 5;
+      if (age >= 6 && age <= 12)  guest.fee = 5;
       if (age >= 13 && age <= 17) return guest.fee = 10;
-      
+      if (age > 17) return guest.fee = 15;
+
       return guest.fee;
     },
     async submitForm() {
