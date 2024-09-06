@@ -195,9 +195,6 @@ export default {
   name: 'RegistrationPage',
   mounted() {
     // Initialize Materialize dropdowns
-    const elems = document.querySelectorAll('.dropdown-trigger');
-    M.Dropdown.init(elems, {});
-
     var elems1 = document.querySelectorAll('select');
     M.FormSelect.init(elems1, {});
   },
@@ -240,7 +237,13 @@ export default {
   watch: {
     ministry() {
       this.clearFields();
-    }
+    },
+    ministryOptions() {
+    this.$nextTick(() => {
+      const elems = document.querySelectorAll('select');
+      M.FormSelect.init(elems);
+    });
+  }
   },
   computed: {
     isFormValid() {
