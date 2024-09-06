@@ -4,7 +4,7 @@
       <nav class="blue darken-3">
         <div class="container">
           <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" class="brand-logo">CFC South TX</a>
             <ul class="right hide-on-med-and-down">
               <li><router-link to="/" class="white-text">Home</router-link></li>
               <li><router-link to="/about-us" class="white-text">About Us</router-link></li>

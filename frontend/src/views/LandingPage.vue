@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h1>Landing Page</h1>
-      <p>Welcome to the landing page!</p>
+      <h1>Home</h1>
+      <p>CFC South TX</p>
     </div>
   </template>
   

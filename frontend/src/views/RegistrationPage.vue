@@ -28,7 +28,16 @@
             </select>
             <label>Ministry</label>
           </div>
-        </div>  
+
+        <div class="input-field col s12">
+          <input type="text" id="household-leader" v-model="householdLeader" required />
+          <label for="household-leader">Household Leader:</label>
+        </div>
+          
+    </div>
+
+
+
 
       <!-- Conditional First Name and Last Name Fields -->
       <div v-if="ministry === 'Couples for Christ'">
@@ -125,6 +134,11 @@
             <label :for="'guest-age-' + index">Age:</label>
           </div>
 
+          <div class="input-field">
+            <input type="text" :id="'guest-ministry-' + index" v-model="guest.category" required />
+            <label :for="'guest-ministry-' + index">Ministry:</label>
+          </div>
+
           <div class="fee-display">
           Fee: ${{ calculateFee(guest.age) }}.00
         </div>
@@ -193,6 +207,7 @@ export default {
       ],
       chapter: '',
       ministry: '',
+      householdLeader: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -243,7 +258,7 @@ export default {
     this.partyGuests.push({
       firstName: '',
       lastName: '',
-      category: 'Guest',
+      category: '',
       age: '',
     });
   },
@@ -373,12 +388,11 @@ export default {
 .guest-fields-container {
   margin-bottom: 1rem;
 }
-
 .guest-fields {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  align-items: center; /* Vertically center align items */
+  flex-wrap: wrap; /* Allow wrapping if there’s not enough space */
+  margin-bottom: 10px; /* Add space between guests */
 }
 
 .guest-fields .input-field {
