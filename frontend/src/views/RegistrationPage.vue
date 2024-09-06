@@ -23,7 +23,7 @@
     </div>
 
     <!-- Ministry Dropdown -->
-          <div class="input-field col s12 s6">
+          <div class="input-field col s12 m6">
             <select v-model="ministry" required>
               <option value="" disabled selected>Choose your Ministry</option>
               <option v-for="option in ministryOptions" :key="option.value" :value="option.value">
