@@ -48,21 +48,4 @@ export default {
   text-decoration: underline;
 }
 
-.register-button {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-}
-.register-button:hover {
-  background-color: #0056b3;
-}
 </style>

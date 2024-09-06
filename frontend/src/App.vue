@@ -42,10 +42,6 @@ body {
   background-color: #f4f4f4;
 }
 
-nav {
-
-}
-
 nav .brand-logo {
   font-size: 1.5rem;
 }

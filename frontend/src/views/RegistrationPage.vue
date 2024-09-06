@@ -2,43 +2,41 @@
   <div class="container">
     <h1 class="center-align">2024 CFC Christmas Party RSVP</h1>
     <p class="center-align">NOTE: Participants over 18 must submit their own form.</p>
+
+
+
+
     <form @submit.prevent="submitForm" class="col s12">
       <!-- Fields Container for Chapter/Area and Ministry -->
+      <h2 class="center-align">Chapter and Ministry Information: </h2>
+
       <div class="row">
-        <!-- Chapter/Area Field -->
+        <!-- Chapter Dropdown Trigger -->
         <div class="input-field col s12 m6">
-          <select id="chapter" v-model="chapter" required>
-            <option value="" disabled>Select Chapter/Area</option>
-            <option value="North">North</option>
-            <option value="South">South</option>
-            <option value="Southwest">Southwest</option>
-            <option value="West">West</option>
-            <option value="Austin">Austin</option>
-            <option value="San Antonio">San Antonio</option>
-            <option value="Guest">Guest</option>
-          </select>
-          <label for="chapter">CFC South Texas Unit</label>
+          <a class="dropdown-trigger btn" href="#" data-target="dropdown-chapter">
+            {{ chapter || 'Select Chapter/Area' }}
+          </a>
+          <ul id="dropdown-chapter" class="dropdown-content">
+            <li v-for="chapterOption in chapterOptions" :key="chapterOption.value">
+              <a @click="selectChapter(chapterOption.value)">{{ chapterOption.label }}</a>
+            </li>
+          </ul>
         </div>
 
-        <!-- Ministry Field -->
+        <!-- Ministry Dropdown Trigger -->
         <div class="input-field col s12 m6">
-          <select id="ministry" v-model="ministry" required>
-            <option value="" disabled>Select Ministry</option>
-            <option value="Single">Single for Christ</option>
-            <option value="Youth">Youth for Christ</option>
-            <option value="Couple">Couples for Christ </option>
-            <option value="Servant">Servant of the Lord</option>
-            <option value="Handmaid">Handmaid of the Lord</option>
-            <option value="Guest">Guest</option>
-          </select>
-          <label for="ministry">Ministry:</label>
+          <a class="dropdown-trigger btn" href="#" data-target="dropdown-ministry">
+            {{ ministry || 'Select Ministry' }}
+          </a>
+          <ul id="dropdown-ministry" class="dropdown-content">
+            <li v-for="ministryOption in ministryOptions" :key="ministryOption.value">
+              <a @click="selectMinistry(ministryOption.value)">{{ ministryOption.label }}</a>
+            </li>
+          </ul>
         </div>
+
       </div>
 
-      <div class="input-field col s12 m6">
-          <input type="text" id="household-leader" v-model="householdLeader" required />
-          <label for="household-leader">Household Leader:</label>
-      </div>
 
       
 
@@ -118,7 +116,7 @@
       </div>
 
       <h2 class="center-align">
-        <a class="waves-effect waves-light btn" @click="addPartyGuest">Add Party Guest</a>
+        <a class="btn" @click="addPartyGuest">Add Party Guest</a>
       </h2>
 
       <div v-for="(guest, index) in partyGuests" :key="index" class="guest-fields-container">
@@ -168,7 +166,7 @@
               </label>
             </p>
           </div>
-          <a class="waves-effect waves-light btn red" @click="removePartyGuest(index)">Remove Guest</a>
+          <a class="btn red" @click="removePartyGuest(index)">Remove Guest</a>
         </div>
       </div>
 
@@ -191,6 +189,7 @@
         </div>
       </div>
 
+
       <div v-if="message" :class="messageType">{{ message }}</div>
     </form>
   </div>
@@ -198,13 +197,35 @@
 
 <script>
 import axios from 'axios';
-
+import M from 'materialize-css';
 export default { 
   name: 'RegistrationPage',
+  mounted() {
+    // Initialize Materialize dropdowns
+    const elems = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(elems, {});
+  },
   data() {
     return {
-      chapter: 'Houston',
-      ministry: 'Single',
+      chapterOptions: [
+        { value: 'North', label: 'North' },
+        { value: 'South', label: 'South' },
+        { value: 'Southwest', label: 'Southwest' },
+        { value: 'West', label: 'West' },
+        { value: 'Austin', label: 'Austin' },
+        { value: 'San Antonio', label: 'San Antonio' },
+        { value: 'Guest', label: 'Guest' },
+      ],
+      ministryOptions: [
+        { value: 'Single for Christ', label: 'Single for Christ' },
+        { value: 'Youth for Christ', label: 'Youth for Christ' },
+        { value: 'Couples for Christ', label: 'Couples for Christ' },
+        { value: 'Servant of the Lord', label: 'Servant of the Lord' },
+        { value: 'Handmaid of the Lord', label: 'Handmaid of the Lord' },
+        { value: 'Guest', label: 'Guest' },
+      ],
+      chapter: '',
+      ministry: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -241,6 +262,12 @@ export default {
       this.wifeEmail = '';
       this.wifePhoneNumber = '';
       this.partyGuests = [];
+    },
+    selectChapter(value) {
+      this.chapter = value;
+    },    
+    selectMinistry(value) {
+      this.ministry = value;
     },
     validatePhoneNumber() {
       this.phoneNumber = this.phoneNumber.replace(/\D/g, '').slice(0, 10);
@@ -283,10 +310,6 @@ export default {
         this.messageType = 'success-message';
         this.message = 'Registration Success!';
 
-        setTimeout(() => {
-          this.$router.push('/news');
-        }, 3000);
-
       } catch (error) {
         this.messageType = 'error-message';
         this.message = 'Error submitting form. Please try again.';
@@ -323,5 +346,50 @@ export default {
 
 .submit-button-wrapper {
   margin-top: 20px;
+}
+
+/* Custom Dropdown Button Styles */
+.dropdown-trigger {
+  background-color: #1976d2; /* Blue color */
+  color: #fff;
+  border-radius: 4px;
+  padding: 0 1rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  text-align: center;
+  width: 100%; /* Adjust this to match the width of the dropdown */
+}
+
+/* Dropdown Menu Styles */
+.dropdown-content {
+  width: 200px; /* Fixed width for the dropdown menu */
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content li > a {
+  color: #000;
+}
+
+.dropdown-content li > a:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+}
+
+/* Add padding and border radius to make dropdown look like standard dropdown */
+.dropdown-content li {
+  padding: 0.5rem;
+}
+
+.dropdown-content li + li {
+  border-top: 1px solid #ddd; /* Divider line between items */
+}
+
+.input-field {
+  margin-bottom: 1.5rem;
+}
+
+
+.input-field {
+  margin-bottom: 1.5rem;
 }
 </style>
