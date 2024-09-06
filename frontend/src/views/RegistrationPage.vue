@@ -283,6 +283,10 @@ export default {
         this.messageType = 'success-message';
         this.message = 'Registration Success!';
 
+        setTimeout(() => {
+          this.$router.push('/news');
+        }, 3000);
+
       } catch (error) {
         this.messageType = 'error-message';
         this.message = 'Error submitting form. Please try again.';
