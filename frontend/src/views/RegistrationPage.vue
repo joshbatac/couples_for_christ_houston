@@ -7,7 +7,7 @@
     </div>
     <h1 class="title has-text-centered">2024 Christmas Party Registration</h1>
     <hr>
-    <h2 class="has-text-danger has-text-centered subtitle">Theme: Be a Servant and Light to the World></h2>
+    <h2 class="has-text-danger has-text-centered subtitle">Theme: Be a Servant and Light to the World</h2>
     <p class="left-justified"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
     <p class="left-justified"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
     <p class="left-justified"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
