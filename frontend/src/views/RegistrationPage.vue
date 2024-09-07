@@ -167,7 +167,7 @@
           <div class="field">
             <label class="label">Age</label>
             <div class="control">
-              <input class="input" type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" max="17" required />
+              <input class="input" type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" max="17" required @change="changeTotal"/>
             </div>
           </div>
 
@@ -175,7 +175,7 @@
   <label class="label">Ministry</label>
   <div class="control">
     <div class="select is-fullwidth">
-      <select :id="'guest-ministry-' + index" v-model="guest.category" required>
+      <select :id="'guest-ministry-' + index" v-model="guest.category" @change="changeTotal" required>
         <option value="Kids">Kids for Christ</option>
         <option value="Youth">Youth for Christ</option>
         <option value="Guest">Guest</option>
@@ -277,6 +277,10 @@ export default {
       } else {
         this.total = 15;
       }
+
+      this.partyGuests.forEach(guest => {
+        this.total += guest.fee;
+      });
     },
     clearFields() {
       this.firstName = '';
@@ -306,11 +310,12 @@ export default {
       age: '',
       fee: 0
     });
-    this.total +=5;
+    this.changeTotal();
   },
   removePartyGuest(index) {
     this.partyGuests.splice(index, 1);
-    this.total -=5;
+    this.changeTotal();
+
   },
   calculateFee(guest) {
       var age = guest.age;
