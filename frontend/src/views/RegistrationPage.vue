@@ -2,17 +2,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <div class="container">
-    <h1 class="title has-text-centered">2024 CFC Christmas Party Registration</h1>
+    <div class="has-text-centered">
+      <img src="@/assets/CouplesforChristlogo.png" alt="Couples for Christ Logo" style="max-width: 200px;">
+    </div>
+    <h1 class="title has-text-centered">2024 Christmas Party Registration</h1>
     <hr>
-    <h2 class="has-text-danger has-text-centered subtitle"><i>Theme: Be the light of the World</i></h2>
+    <h2 class="has-text-danger has-text-centered subtitle">Theme: Be a Servant and Light to the World></h2>
     <p class="left-justified"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
     <p class="left-justified"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
     <p class="left-justified"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
     <p class="left-justified"><strong>Deadline to RSVP:</strong> September 15, 2024</p>
     <p class="left-justified"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
 
-    <p class="has-text-centered"><i>* All attendees ages 18 and above must submit their own form *</i></p>
-
+    <p class="has-text-centered" style="color: red; font-weight: bold;">
+    <i>* All attendees ages 18 and above must submit their own form *</i>
+    </p>
     <form @submit.prevent="submitForm">
       <div class="field">
         <label class="label">Chapter</label>
@@ -39,6 +43,18 @@
       </div>
     </div>
   </div>
+
+  <div v-if="ministry === 'Guest'|| this.chapter === 'Guest'" >
+    <div class="field">
+        <label class="label">Guest of: </label>
+        <div class="control">
+          <input class="input" type="text" id="guestHost" v-model="guestHost" required />
+        </div>
+      </div>
+  </div>
+
+
+
       <div class="field">
         <label class="label">Household Leader</label>
         <div class="control">
@@ -167,7 +183,7 @@
           <div class="field">
             <label class="label">Age</label>
             <div class="control">
-              <input class="input" type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" max="17" required @change="changeTotal"/>
+              <input class="input" type="number" :id="'guest-age-' + index" v-model="guest.age" min="1" required @change="changeTotal"/>
             </div>
           </div>
 
@@ -238,6 +254,7 @@ export default {
       chapter: '',
       ministry: '',
       householdLeader: '',
+      guestHost: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -343,7 +360,11 @@ export default {
         " " + this.wifeLastName, 'Adult', 15); //husband data if couple, otherwise personal info
           await this.submitIndividual(this.wifeFirstName, this.wifeLastName, this.ministry,  this.wifeEmail, this.wifePhoneNumber, "Wife of " + this.firstName + " " + this.lastName,  'Adult', 15); //insert wife data
         } else {
-          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, "N/A", 'Adult', 15);
+          var tempRole = 'N/A';
+          if (this.guestHost != '') {
+            tempRole = "Guest of " + this.guestHost;
+          }
+          await this.submitIndividual(this.firstName, this.lastName, this.ministry,  this.email, this.phoneNumber, tempRole, "Adult", 15);
         }
 
         for (const guest of this.partyGuests) {
