@@ -5,17 +5,25 @@
         <div class="container">
           <div class="navbar-brand">
             <a href="#" class="navbar-item">CFC South TX</a>
-            <div class="navbar-burger burger" data-target="navbarMenu">
+            <div
+              class="navbar-burger burger"
+              :class="{ 'is-active': isActive }"
+              @click="toggleMenu"
+            >
               <span></span>
               <span></span>
               <span></span>
             </div>
           </div>
-          <div id="navbarMenu" class="navbar-menu">
+          <div
+            id="navbarMenu"
+            class="navbar-menu"
+            :class="{ 'is-active': isActive }"
+          >
             <div class="navbar-end">
-              <router-link to="/" class="navbar-item">Home</router-link>
-              <router-link to="/about-us" class="navbar-item">About Us</router-link>
-              <router-link to="/news" class="navbar-item">News and Articles</router-link>
+              <router-link to="/" class="navbar-item" @click="closeMenu">Home</router-link>
+              <router-link to="/about-us" class="navbar-item" @click="closeMenu">About Us</router-link>
+              <router-link to="/news" class="navbar-item" @click="closeMenu">News and Articles</router-link>
             </div>
           </div>
         </div>
@@ -32,6 +40,25 @@
 <script>
 export default {
   name: 'App',
+  data() {
+    return {
+      isActive: false, // To toggle the navbar menu
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isActive = !this.isActive; // Toggles the is-active class
+    },
+    closeMenu() {
+      this.isActive = false; // Closes the menu
+    },
+  },
+  mounted() {
+    this.$router.beforeEach((to, from, next) => {
+      this.closeMenu(); // Close the menu before navigating to a new page
+      next(); // Continue with the navigation
+    });
+  },
 };
 </script>
 
