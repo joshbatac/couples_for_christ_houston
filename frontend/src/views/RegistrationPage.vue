@@ -19,7 +19,7 @@
     </p>
     <form @submit.prevent="submitForm">
       <div class="field">
-        <label class="label">Area</label>
+        <label class="label">Unit</label>
         <div class="control">
           <div class="select is-fullwidth">
             <select v-model="chapter" id="chapter" required>
