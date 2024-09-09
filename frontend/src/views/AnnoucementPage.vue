@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>News and Article</h1>
+      <h1>Announcements</h1>
   
       <div class="announcement content">
           <dl>
