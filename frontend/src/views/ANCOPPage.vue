@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>To be updated with students list</h1>
+        <h1>ANCOP</h1>
     </div>
   </template>
   
