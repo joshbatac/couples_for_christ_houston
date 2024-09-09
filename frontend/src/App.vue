@@ -23,7 +23,11 @@
             <div class="navbar-end">
               <router-link to="/" class="navbar-item" @click="closeMenu">Home</router-link>
               <router-link to="/about-us" class="navbar-item" @click="closeMenu">About Us</router-link>
+              <router-link to="/ministry" class="navbar-item" @click="closeMenu">Ministry</router-link>
               <router-link to="/news" class="navbar-item" @click="closeMenu">News and Articles</router-link>
+              <router-link to="/announcement" class="navbar-item" @click="closeMenu">Announcements</router-link>
+              <router-link to="/contact-us" class="navbar-item" @click="closeMenu">Contact Us</router-link>
+
             </div>
           </div>
         </div>

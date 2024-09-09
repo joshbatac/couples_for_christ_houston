@@ -6,13 +6,16 @@
       <img src="@/assets/CouplesforChristlogo.png" alt="Couples for Christ Logo" style="max-width: 200px;">
     </div>
     <h1 class="title has-text-centered">2024 Christmas Party Registration</h1>
-    <hr>
-    <h2 class="has-text-danger has-text-centered subtitle">Theme: Be a Servant and Light to the World</h2>
+<br>
+    <h2 class="has-text-danger has-text-centered subtitle" style="color: red; font-weight: bold;">Theme: Be a Servant and Light to the World</h2>
+    
     <p class="left-justified"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
     <p class="left-justified"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
     <p class="left-justified"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
     <p class="left-justified"><strong>Deadline to RSVP:</strong> September 15, 2024</p>
     <p class="left-justified"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
+<br>
+     <a href="https://docs.google.com/spreadsheets/d/1tYwJBL2rclennLopqiwCO91V98Vqobops6G_oYW620I/pubhtml?gid=1980918340&single=true" target="_blank" rel="noopener noreferrer">View current attendees</a>
 
     <p class="has-text-centered" style="color: red; font-weight: bold;">
     <i>* All attendees ages 18 and above must submit their own form *</i>

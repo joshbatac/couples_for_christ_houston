@@ -1,32 +1,66 @@
+<!-- 
 <template>
   <div>
     <h1>News and Article</h1>
 
-    <div class="announcement">
-      <h2>CFC Houston Christmas Party 2024</h2>
-      <p>We're excited to announce the CFC Houston Christmas Party for 2024!</p>
-      <p><strong>Date:</strong> December 7, 2024 (Saturday)</p>
-      <p><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
-      <p><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
-      <p><strong>Deadline to RSVP:</strong> September 15, 2024</p>
-      <p><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
-     <br> <p>* All attendees aged 18 and above must submit their own form *</p>
-     <br>
-     <p>Current Participants: <a href="https://docs.google.com/spreadsheets/d/1tYwJBL2rclennLopqiwCO91V98Vqobops6G_oYW620I/pubhtml?gid=1980918340&single=true" target="_blank" rel="noopener noreferrer">View List</a></p>
-     <p><i>Please allow up to 5 minutes for the Particpant lists to refresh</i></p>
+    <div class="announcement content">
+        <dl>
+            <dt>For to us a child is born,</dt>
+                <dd>to us a son is given,</dd>
+                <dd>and the government will be on his shoulders.</dd>
+            <dt>and he will be called</dt>
+                <dd>Wonderful Counselor, Mighty God,</dd>
+                <dd> Everlasting Father, Prince of Peace.</dd>
+        </dl>
+         Isaiah 9:6
+        <br><br>
+        <p class="has-text-centered">Join us in celebrating our Saviour's birth on December 7. </p>
+        <p class="has-text-centered"><button class="button"><router-link to="/register">Click here to register</router-link></button></p>
     </div>
 
-    <button class="register-button"><router-link to="/register">Register</router-link></button>
-  </div>
-</template>
+    <div class="announcement">   
+    <br>
+    <center>
+    <img src="@/assets/CFC Houston Sept GA Flyer.jpg" alt="GA" style="max-width: flex;"></center>
+    <br><br>
+    <p class="has-text-centered">
+    </p>
+    </div>
 
+
+
+    <div class="announcement">   
+    <br>
+    <center>
+    <img src="@/assets/ancop.png" alt="ancop" style="max-width: flex;"></center>
+    <br><br>
+    <p class="has-text-centered">
+     <router-link to="/ancop"><h2>See our students list</h2></router-link>
+    </p>
+    </div>
+
+  </div>
+  
+</template>
+-->
 <script>
 export default {
   name: 'LandingPage',
 };
 </script>
 
-<style>
+<style scoped>
+
+p { text-indent: 2em; margin: 0 }
+
+.has-text-indented-1 {
+  margin: 4rem 0;
+}
+
+p.has-text-indented-2 {
+  margin: 20rem 0;
+}
+
 .announcement {
   border: 1px solid #ddd;
   padding: 15px;
@@ -75,5 +109,9 @@ export default {
 
 .register-button:focus {
   outline: none;
+}
+
+p.has-text-centered {
+  margin: 0.5rem 0;
 }
 </style>

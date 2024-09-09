@@ -3,6 +3,10 @@ import LandingPage from '@/views/LandingPage.vue';
 import RegistrationPage from '@/views/RegistrationPage.vue';
 import NewsAndArticlesPage from '@/views/NewsAndArticlesPage.vue';
 import AboutUsPage from '@/views/AboutUsPage.vue';
+import ANCOPPage from '@/views/ANCOPPage.vue';
+import ContactUsPage from '@/views/ContactUsPage.vue';
+import MinistryPage from '@/views/MinistryPage.vue';
+import AnnoucementPage from '@/views/AnnoucementPage.vue';
 
 const routes = [
   {
@@ -24,6 +28,26 @@ const routes = [
     path: '/news',
     name: 'news',
     component: NewsAndArticlesPage,
+  },
+  {
+    path: '/ancop',
+    name: 'ancop',
+    component: ANCOPPage,
+  },
+  {
+    path: '/contact-us',
+    name: 'contact-us',
+    component: ContactUsPage,
+  },
+  {
+    path: '/ministry',
+    name: 'ministry',
+    component: MinistryPage,
+  },
+  {
+  path: '/announcement',
+  name: 'announcement',
+  component: AnnoucementPage,
   },
 
 ];
