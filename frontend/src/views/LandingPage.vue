@@ -1,7 +1,6 @@
 <template>
     <div>
-      <h1>Home</h1>
-      <p>CFC South TX</p>
+        <p>CFC South TX</p>
     </div>
   </template>
   

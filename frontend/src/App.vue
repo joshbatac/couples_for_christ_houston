@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <header>
-      <nav class="navbar is-dark">
+      <div class="box">
+      <nav class="navbar is-light">
         <div class="container">
           <div class="navbar-brand">
-            <a href="#" class="navbar-item">CFC South TX</a>
+           <!-- <a href="#" class="navbar-item">CFC South JOEL TX</a> -->
+            <img src="@/assets/cfc_logo_colored.jpg" alt="Couples for Christ Logo" style="max-width: 250px;">
+
             <div
               class="navbar-burger burger"
               :class="{ 'is-active': isActive }"
@@ -23,7 +26,7 @@
             <div class="navbar-end">
               <router-link to="/" class="navbar-item" @click="closeMenu">Home</router-link>
               <router-link to="/about-us" class="navbar-item" @click="closeMenu">About Us</router-link>
-              <router-link to="/ministry" class="navbar-item" @click="closeMenu">Ministry</router-link>
+              <router-link to="/ministry" class="navbar-item" @click="closeMenu">Ministry</router-link>           
               <router-link to="/news" class="navbar-item" @click="closeMenu">News and Articles</router-link>
               <router-link to="/announcement" class="navbar-item" @click="closeMenu">Announcements</router-link>
               <router-link to="/contact-us" class="navbar-item" @click="closeMenu">Contact Us</router-link>
@@ -32,6 +35,7 @@
           </div>
         </div>
       </nav>
+    </div>
     </header>
     <main class="section">
       <div class="container">
