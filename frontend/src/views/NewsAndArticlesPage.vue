@@ -1,4 +1,3 @@
-<!-- 
 <template>
   <div>
     <h1>News and Article</h1>
@@ -18,31 +17,15 @@
         <p class="has-text-centered"><button class="button"><router-link to="/register">Click here to register</router-link></button></p>
     </div>
 
-    <div class="announcement">   
-    <br>
-    <center>
-    <img src="@/assets/CFC Houston Sept GA Flyer.jpg" alt="GA" style="max-width: flex;"></center>
-    <br><br>
-    <p class="has-text-centered">
-    </p>
-    </div>
 
 
 
-    <div class="announcement">   
-    <br>
-    <center>
-    <img src="@/assets/ancop.png" alt="ancop" style="max-width: flex;"></center>
-    <br><br>
-    <p class="has-text-centered">
-     <router-link to="/ancop"><h2>See our students list</h2></router-link>
-    </p>
-    </div>
+
 
   </div>
   
 </template>
--->
+
 <script>
 export default {
   name: 'LandingPage',

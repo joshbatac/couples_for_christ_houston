@@ -1,11 +1,18 @@
 <template>
-    <div>
-        <h1>ANCOP</h1>
-    </div>
+<div>
+
+    <center>
+        <img src="@/assets/Aaron Barry - CSP-3846.png" alt="GA" style="max-width: flex;"></center>
+    
+    </div>>
   </template>
-  
-  <script>
+
+
+
+
+<script>
   export default {
     name: 'LandingPage',
   };
   </script>
+
