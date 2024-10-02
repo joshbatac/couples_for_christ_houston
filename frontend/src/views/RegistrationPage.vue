@@ -46,6 +46,7 @@
     </div>
   </div>
 
+
   <div v-if="ministry === 'Guest'|| this.chapter === 'Guest'" >
     <div class="field">
         <label class="label">Guest of: </label>
@@ -55,7 +56,20 @@
       </div>
   </div>
 
-
+  <!--
+      <div class="field">
+    <label class="label">Household Leader</label>
+    <div class="control">
+      <div class="select is-fullwidth">
+        <select v-model="householdLeader" id="household-leader" @change="changeTotal" required>
+          <option v-for="option in leaderOption" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+   -->  
 
       <div class="field">
         <label class="label">Household Leader</label>
@@ -63,7 +77,7 @@
           <input class="input" type="text" id="household-leader" v-model="householdLeader" required />
         </div>
       </div>
-
+ 
       <div v-if="ministry === 'Couples for Christ'">
         <h3 class="title is-4">Husband Information:</h3>
         <div class="field">
@@ -253,6 +267,24 @@ export default {
         { value: 'Handmaid of the Lord', label: 'Handmaid of the Lord' },
         { value: 'Guest', label: 'Guest' },
       ],
+      leaderOption: [
+        { value: 'Joel Dinopol', label: 'Joel Dinopol' },
+        { value: 'Biju', label: 'Biju' },
+        { value: 'Antonio', label: 'Antonio' },
+        { value: 'Randy', label: 'Randy' },
+        { value: 'Jay', label: 'Jay' },
+        { value: 'Wilson', label: 'Wilson' },
+        { value: 'Vic Pascasio ', label: 'Vic Pascasio ' },
+        { value: 'Lester Mendoza', label: 'Lester Mendoza' },
+        { value: 'Cris Garcia', label: 'Cris Garcia' },
+        { value: 'Jose Pagayon', label: 'Jose Pagayon' },
+        { value: 'Achilles Mendoza', label: 'Achilles Mendoza' },
+        { value: 'Dodjie', label: 'Dodjie' },
+        { value: 'usha mathew', label: 'usha mathew' },
+        { value: 'Jack & Nelia Macalalad ', label: 'Jack & Nelia Macalalad ' },
+        { value: 'Guest', label: 'Guest' },
+      ],
+
       chapter: '',
       ministry: '',
       householdLeader: '',
