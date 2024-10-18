@@ -17,7 +17,7 @@
                 <p class="has-text-centered">Join us in celebrating our Saviour's birth on December 7. </p>
                 <p class="has-text-centered"><button class="button"><router-link to="/register">Click here to register</router-link></button></p>
       </div>
-  
+  <!--
         <div class="announcement">   
                 <br>
                 <center>
@@ -39,7 +39,7 @@
                 <a href="https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2YvYy80MTA1ZjkwMTYzZTU3OTg1L0VoNzJibDY4U0lwUGlxbjJiOXNKMXFJQjFoUnBsWUl2MGF6NGVCblRwR1dJMWc%5FZT1UdUxhdVE&cid=4105F90163E57985&id=4105F90163E57985%21s3fa4b69fa0d84e6abfb5f6692489c1c4&parId=4105F90163E57985%21s5e6ef61e48bc4f8a8aa9f66fdb09d6a2&o=OneUp" target="_blank" rel="noopener noreferrer">Click to View Children for Sponsorship</a>
                 </p>
         </div>
-
+      -->
     </div> 
   </template>
   
