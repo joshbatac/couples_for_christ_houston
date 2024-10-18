@@ -11,7 +11,8 @@
     <p class="left-justified"><strong>Date:</strong> December 7, 2024 (Saturday)</p>
     <p class="left-justified"><strong>Venue:</strong> St. Bernadette Catholic Church - FLC</p>
     <p class="left-justified"><strong>Address:</strong> 15500 El Camino Real, Houston, TX 77062</p>
-    <p class="left-justified"><strong>Deadline to RSVP:</strong> September 30, 2024</p>
+    <p class="left-justified"><strong>Deadline to RSVP:</strong> October 30, 2024</p>
+  
     <p class="left-justified"><strong>Contact:</strong> <a href="mailto:cfchouston@couplesforchristusa.org">cfchouston@couplesforchristusa.org</a></p>
 <br>
      <a href="https://docs.google.com/spreadsheets/d/1tYwJBL2rclennLopqiwCO91V98Vqobops6G_oYW620I/pubhtml?gid=1980918340&single=true" target="_blank" rel="noopener noreferrer">View current attendees</a>
