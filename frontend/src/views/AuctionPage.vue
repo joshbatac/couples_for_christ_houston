@@ -10,11 +10,16 @@
       </div>
   
       <!-- Modal component for placing a bid -->
-      <AuctionModal v-if="showModal" :item="selectedItem" @close="closeModal" />
-    </div>
+      <AuctionModal
+  v-if="showModal"
+  :item="selectedItem"
+  @close="closeModal"
+  @submit-bid="handleBidSubmit"
+/>    </div>
   </template>
   
   <script>
+    import axios from 'axios';
     import AuctionModal from './AuctionModal.vue';
   
   export default {
@@ -45,6 +50,15 @@
         this.showModal = false;
         this.selectedItem = null;
       },
+      handleBidSubmit(bidData) {
+    axios.post('http://localhost:3000/submit-bid', bidData)
+      .then(response => {
+        alert(response.data.message);
+      })
+      .catch(error => {
+        console.error('Error submitting bid:', error);
+      });
+  },
     },
   };
   </script>

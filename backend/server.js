@@ -44,6 +44,46 @@ app.post('/submit', async (req, res) => {
   }
 });
 
+app.post('/submit-bid', async (req, res) => {
+  try {
+    const { itemId, name, email, phoneNumber, bidAmount } = req.body;
+
+    // Map item IDs to corresponding Google Sheets tab names
+    const sheetNames = {
+      1: 'Item1',
+      2: 'Item2',
+      3: 'Item3',
+      4: 'Item4',
+      5: 'Item5',
+      6: 'Item6'
+    };
+
+    const sheetName = sheetNames[itemId];
+    if (!sheetName) {
+      return res.status(400).json({ status: 'error', message: 'Invalid item ID' });
+    }
+
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbywtFox4fsVE2Onm51I9-Rp5UIGAFlVIyb5ItnAnwHfLvPavSk9PUwvVRZpqoUSE3j4Dg/exec ';
+
+    const response = await axios.post(scriptUrl, {
+      sheetName, // Pass the tab name to Google Sheets
+      name,
+      email,
+      phoneNumber,
+      bidAmount
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    res.status(200).json({ status: 'success', message: 'Bid placed successfully' });
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.data : error.message);
+    res.status(500).json({ status: 'error', message: 'Failed to submit bid' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

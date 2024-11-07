@@ -80,13 +80,20 @@
         this.$emit('close');
       },
       submitBid() {
-        if (this.bidAmount < this.minimumBid) {
-          alert(`Bid must be at least $${this.minimumBid}`);
-        } else {
-          alert(`Bid placed by ${this.name} for $${this.bidAmount}`);
-          this.closeModal();
-        }
-      },
+  if (this.bidAmount < this.minimumBid) {
+    alert(`Bid must be at least $${this.minimumBid}`);
+  } else {
+    // Emit a submit event with bid details
+    this.$emit('submit-bid', {
+      itemId: this.item.id,
+      name: this.name,
+      email: this.email,
+      phoneNumber: this.phoneNumber,
+      bidAmount: this.bidAmount
+    });
+    this.closeModal();
+  }
+}
     },
   };
   </script>
