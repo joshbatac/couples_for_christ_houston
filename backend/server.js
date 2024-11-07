@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('Hello from backend! 3pm changes');
+  res.send('Hello from backend! Nov 7 Changes');
 });
 
 app.post('/submit', async (req, res) => {

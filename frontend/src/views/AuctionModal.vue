@@ -88,7 +88,7 @@
       itemId: this.item.id,
       name: this.name,
       email: this.email,
-      phoneNumber: this.phoneNumber,
+      phoneNumber: this.phone,
       bidAmount: this.bidAmount
     });
     this.closeModal();

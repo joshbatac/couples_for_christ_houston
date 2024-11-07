@@ -51,7 +51,7 @@
         this.selectedItem = null;
       },
       handleBidSubmit(bidData) {
-    axios.post('http://localhost:3000/submit-bid', bidData)
+    axios.post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit-bid', bidData)
       .then(response => {
         alert(response.data.message);
       })
