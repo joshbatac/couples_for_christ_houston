@@ -27,8 +27,8 @@
               type="tel"
               id="phone"
               v-model="phone"
-              placeholder="123-456-7890"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="1234567890"
+              pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
               required
             />
           </div>
@@ -72,7 +72,8 @@
     },
     computed: {
       minimumBid() {
-        return Math.ceil(this.item.currentBid * 1.1); // 10% above current bid
+        const bid = this.item.currentBid * 1.1; // 10% above current bid
+        return Math.round(bid); // Round to nearest dollar
       },
     },
     methods: {
