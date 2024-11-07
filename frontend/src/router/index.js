@@ -7,6 +7,8 @@ import ANCOPPage from '@/views/ANCOPPage.vue';
 import ContactUsPage from '@/views/ContactUsPage.vue';
 import MinistryPage from '@/views/MinistryPage.vue';
 import AnnoucementPage from '@/views/AnnoucementPage.vue';
+import AuctionPage from '@/views/AuctionPage.vue';
+
 
 const routes = [
   {
@@ -48,7 +50,12 @@ const routes = [
   path: '/announcement',
   name: 'announcement',
   component: AnnoucementPage,
-  },
+  },  
+  {
+    path: '/auction',
+    name: 'auction',
+    component: AuctionPage,
+    },
 
 ];
 
