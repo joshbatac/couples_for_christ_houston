@@ -67,7 +67,7 @@
         name: '',
         email: '',
         phone: '',
-        bidAmount: this.item.currentBid + this.item.currentBid * 0.1, // Start with minimum bid
+        bidAmount: Math.round(this.item.currentBid + this.item.currentBid * 0.1), // Start with minimum bid
       };
     },
     computed: {
@@ -76,6 +76,7 @@
         return Math.round(bid); // Round to nearest dollar
       },
     },
+    
     methods: {
       closeModal() {
         this.$emit('close');
