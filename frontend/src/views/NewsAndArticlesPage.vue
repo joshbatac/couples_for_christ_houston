@@ -2,6 +2,7 @@
   <div>
     <h1>News and Article</h1>
 
+    <!-- 
     <div class="announcement content">
         <dl>
             <dt>For to us a child is born,</dt>
@@ -16,7 +17,7 @@
         <p class="has-text-centered">Join us in celebrating our Saviour's birth on December 7. </p>
         <p class="has-text-centered"><button class="button"><router-link to="/register">Click here to register</router-link></button></p>
     </div>
-
+-->
 
 
 
