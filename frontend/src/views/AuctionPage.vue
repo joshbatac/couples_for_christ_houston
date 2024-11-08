@@ -60,16 +60,21 @@ export default {
       this.selectedItem = null;
     },
     handleBidSubmit(bidData) {
-      axios
-        .post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit-bid', bidData)
-        .then((response) => {
-          alert(response.data.message);
-        })
-        .catch((error) => {
-          console.error('Error submitting bid:', error);
-          alert('Error Submitting! Please try again');
-        });
-    },
+  axios
+    .post('https://cfc-backend-246d6d84ddbc.herokuapp.com/submit-bid', bidData)
+    .then((response) => {
+      alert(response.data.message); // Show the success message
+
+      // Refresh the page after the alert is dismissed
+      setTimeout(() => {
+        window.location.reload(); // This will refresh the page
+      }, 500); // Set a slight delay (500ms) to ensure the alert is gone
+    })
+    .catch((error) => {
+      console.error('Error submitting bid:', error);
+      alert('Error Submitting! Please try again');
+    });
+},
     fetchLatestBid(itemId) {
       axios
         .get(`https://script.google.com/macros/s/AKfycbyzC3pgt3y0gStu_VNk3K5rRYpazVVi9bOF7-5bPkR0m1_mToA_jNqY_04XhZ2MuDqxMA/exec?itemId=${itemId}`)

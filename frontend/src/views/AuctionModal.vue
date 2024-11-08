@@ -73,7 +73,7 @@
     computed: {
       minimumBid() {
         const bid = this.item.currentBid * 1.1; // 10% above current bid
-        return Math.round(bid); // Round to nearest dollar
+        return Math.ceil(bid); // Round to nearest dollar
       },
     },
     
