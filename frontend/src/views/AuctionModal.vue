@@ -67,21 +67,17 @@
         name: '',
         email: '',
         phone: '',
-        bidAmount: this.calculateInitialBidAmount(), // Use the method to set initial bid amount
+        bidAmount: Math.round(this.item.currentBid + this.item.currentBid * 0.1), // Start with minimum bid
       };
     },
     computed: {
       minimumBid() {
         const bid = this.item.currentBid * 1.1; // 10% above current bid
-        return Math.ceil(bid); // Round to nearest dollar
+        return Math.round(bid); // Round to nearest dollar
       },
     },
     
     methods: {
-      calculateInitialBidAmount() {
-      const initialBid = this.item.currentBid * 1.1; // 10% above current bid
-      return Math.min(Math.ceil(initialBid), 10); // Cap initial bid to a maximum of 10
-    },
       closeModal() {
         this.$emit('close');
       },
