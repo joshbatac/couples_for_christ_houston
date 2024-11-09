@@ -67,15 +67,22 @@
         name: '',
         email: '',
         phone: '',
-        bidAmount: Math.round(this.item.currentBid + this.item.currentBid * 0.1), // Start with minimum bid
+        bidAmount: 0,
       };
     },
     computed: {
       minimumBid() {
-        const bid = this.item.currentBid * 1.1; // 10% above current bid
-        return Math.ceil(bid); // Round to nearest dollar
+        if (!this.item || !this.item.currentBid) return 0;
+
+        const currentBid = this.item.currentBid;
+        const increment = Math.floor(currentBid / 100) * 5 + 5; // Dynamic increment calculation
+
+        return currentBid + increment;
       },
     },
+    mounted() {
+    this.bidAmount = this.minimumBid;
+  },
     
     methods: {
       closeModal() {
