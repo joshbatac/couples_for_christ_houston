@@ -1,11 +1,12 @@
 <template>
   <div>
-    <p v-if="loading" class="loading-screen">Loading Page! Please Wait...</p>
+    <p v-if="loading" class="loading-screen">Loading... Please Wait...</p>
 
     <div v-else>
       <p>Auction</p>
       <div class="auction-grid">
         <div v-for="item in items" :key="item.id" class="auction-item">
+          <h2>{{ item.name }}</h2>
           <!-- Slider -->
           <div class="image-slider">
             <img :src="item.images[currentImageIndex(item)]" alt="Auction item" class="auction-image" />
@@ -30,6 +31,10 @@
 <script>
 import axios from 'axios';
 import AuctionModal from './AuctionModal.vue';
+
+import Temp from "../assets/temp.png"
+
+
 import CFC_HOLD_South_1 from "../assets/CFC-HOLD-South-1.png";
 import CFC_HOLD_South_2 from "../assets/CFC-HOLD-South-2.png";
 import CFC_HOLD_South_3 from "../assets/CFC-HOLD-South-3.png";
@@ -44,18 +49,36 @@ export default {
       items: [
         { 
           id: 1, 
-          images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], 
+          name:"CFC North",
+          images: [Temp], 
           currentBid: 0 
         },
         { 
           id: 2, 
-          images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], 
+          name:"CFC Southwest",
+          images: [Temp], 
           currentBid: 0 
         },
-        { id: 3, images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], currentBid: 0 },
-        { id: 4, images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], currentBid: 0 },
-        { id: 5, images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], currentBid: 0 },
-        { id: 6, images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], currentBid: 0 },
+        { id: 3, 
+          name:"CFC Southwest 2", 
+          images: [Temp], 
+          currentBid: 0 
+        },
+        { id: 4, 
+          name:"CFC South", 
+          images: [Temp], 
+          currentBid: 0 
+        },
+        { id: 5, 
+          name:"CFC HOLD South", 
+        images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], 
+        currentBid: 0 
+        },
+        { id: 6, 
+          name:"Reserve", 
+          images: [Temp], 
+          currentBid: 0 
+        },
       ],
       showModal: false,
       selectedItem: null,
@@ -137,28 +160,38 @@ export default {
 <style scoped>
 .loading-screen {
   text-align: center;
-  font-size: 1.5em;
-  padding: 20px;
+  font-size: 2em; /* Increase loading screen font size */
+  padding: 30px; /* Add more padding for better spacing */
   color: #333;
 }
 
 .auction-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns per row */
+  gap: 30px; /* Increase gap between items */
 }
 
 .auction-item {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 30px; /* Increase padding for larger content boxes */
   text-align: center;
   position: relative;
+  min-height: 600px; /* Increase minimum height for larger boxes */
+  font-size: 1.2em; /* Increase font size for content */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.auction-item h2 {
+  font-size: 2em; /* Increase font size for item name */
+  margin-bottom: 20px; /* Add space between name and content */
 }
 
 .auction-image {
-  width: 100%;
+  width: 150%;
   height: auto;
-  max-height: 200px;
+  max-height: 300px; /* Increase max height for images */
   object-fit: contain;
 }
 
@@ -167,6 +200,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px; /* Add space below image slider */
 }
 
 .prev-btn,
@@ -177,8 +211,9 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
+  font-size: 1.5em; /* Increase button size */
 }
 
 .prev-btn {
@@ -187,5 +222,11 @@ export default {
 
 .next-btn {
   right: 10px;
+}
+
+button {
+  font-size: 1.2em; /* Increase font size of buttons */
+  padding: 15px;
+  margin-top: 20px; /* Add space between button and other content */
 }
 </style>
