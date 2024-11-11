@@ -42,6 +42,29 @@
                 </p>
         </div>
       -->
+
+      <div class="announcement content">
+      <h2>Welcome to the CFC Lantern Auction - Illuminate Lives with Your Support!</h2>
+      <p>Join us in making a difference by bidding on beautifully crafted lanterns from around the world. Each lantern represents a light of hope and solidarity, supporting our mission to empower families and communities in need. Your participation helps spread the spirit of love, compassion, and service.</p>
+
+      <h3>How It Works:</h3>
+      <ul>
+        <li><strong>Bid on Lanterns:</strong> Browse our collection of unique lanterns, each handcrafted with love and representing diverse cultures and traditions. Place your bid to take home a symbol of hope and transformation.</li>
+        <li><strong>Make a Donation:</strong> Not interested in bidding? You can still support our cause by making a direct donation. Every contribution, big or small, helps us reach more families and extend our mission’s impact.</li>
+      </ul>
+
+      <h3>Why Your Support Matters:</h3>
+      <p>Every dollar raised through this auction and your generous donations goes towards life-changing programs that uplift communities and foster unity. Together, we can light up the lives of countless individuals and families, bringing warmth and joy where it’s needed most.</p>
+
+      <h3>Get Involved - Make a Difference:</h3>
+      <p>Whether you’re bidding on a lantern or making a donation, you’re helping us shine a brighter light on the world. Thank you for your support, and let’s illuminate lives together!</p>
+
+      <p class="has-text-centered">
+        <button class="button is-primary"><router-link to="/auction">Bid Now</router-link></button> &nbsp; &nbsp;
+        <button class="button is-link" disabled>Donate Now</button>
+      </p>
+    </div>
+
     </div> 
   </template>
   
