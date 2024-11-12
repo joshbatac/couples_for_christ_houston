@@ -2,9 +2,7 @@
   <div class="modal-backdrop" @click.self="closeModal">
     <div class="modal-content">
       <button @click="closeModal" class="close-button-top">×</button>
-      <h2>Auction Item {{ item.id }}</h2>
-      <img :src="item.image" alt="Auction item" class="modal-image" />
-
+      <p> <strong class="item-name">{{ item.name }}</strong></p>
       <div class="modal-details">
         <p><strong>Current Bid:</strong> ${{ item.currentBid }}</p>
         <p><strong>Minimum Bid:</strong> ${{ minimumBid }}</p>
@@ -240,5 +238,11 @@ export default {
 
 .close-button:hover {
   background-color: #bbb;
+}
+
+.item-name {
+  font-size: 2em; /* Larger font size for the item name */
+  font-weight: bold; /* Make the name bold */
+  color: #333; /* Darker color for visibility, adjust as needed */
 }
 </style>

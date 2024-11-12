@@ -1,7 +1,9 @@
 <template>
   <div>
+    <!-- Loading Screen -->
     <p v-if="loading" class="loading-screen">Loading... Please Wait...</p>
 
+    <!-- Main Content -->
     <div v-else>
       <h1 class="loading-screen">CFC Lantern Auction</h1>
       <div class="auction-grid">
@@ -9,27 +11,7 @@
           <h2>{{ item.name }}</h2>
           <p>Current Bid: ${{ item.currentBid }}</p>
           <hr>
-          <!-- Slider -->
-          <div class="image-slider">
-            <img :src="item.images[currentImageIndex(item)]" alt="Auction item" class="auction-image" />
-            <button @click="prevImage(item)" class="prev-btn">&lt;</button> <!-- Use < for prev -->
-            <button @click="nextImage(item)" class="next-btn">&gt;</button> <!-- Use > for next -->
-          </div>
-          <button @click="openModal(item)">Bid Now</button>
-        </div>
-      </div>
-    </div>
 
-
-    <template>
-  <div>
-    <p v-if="loading" class="loading-screen">Loading... Please Wait...</p>
-
-    <div v-else>
-      <p>Auction</p>
-      <div class="auction-grid">
-        <div v-for="item in items" :key="item.id" class="auction-item">
-          <h2>{{ item.name }}</h2>
           <!-- Image Slider with Click Event for Preview -->
           <div class="image-slider">
             <img
@@ -41,36 +23,22 @@
             <button @click="prevImage(item)" class="prev-btn">&lt;</button>
             <button @click="nextImage(item)" class="next-btn">&gt;</button>
           </div>
+
           <button @click="openModal(item)">Bid Now</button>
         </div>
       </div>
     </div>
 
-    <!-- Image Preview Modal -->
-    <ImagePreviewModal
-      v-if="showImagePreview"
-      :image="previewImage"
-      @close="closeImagePreview"
+    <!-- Modal Component for Placing a Bid -->
+    <AuctionModal
+      v-if="showModal"
+      :item="selectedItem"
+      @close="closeModal"
+      @submit-bid="handleBidSubmit"
     />
+  </div>
+</template>
 
-    <!-- Modal component for placing a bid -->
-    <AuctionModal
-      v-if="showModal"
-      :item="selectedItem"
-      @close="closeModal"
-      @submit-bid="handleBidSubmit"
-    />
-  </div>
-</template>
-    <!-- Modal component for placing a bid -->
-    <AuctionModal
-      v-if="showModal"
-      :item="selectedItem"
-      @close="closeModal"
-      @submit-bid="handleBidSubmit"
-    />
-  </div>
-</template>
 
 <script>
 import axios from 'axios';
