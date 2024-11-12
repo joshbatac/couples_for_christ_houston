@@ -3,10 +3,12 @@
     <p v-if="loading" class="loading-screen">Loading... Please Wait...</p>
 
     <div v-else>
-      <p>Auction</p>
+      <h1 class="loading-screen">CFC Lantern Auction</h1>
       <div class="auction-grid">
         <div v-for="item in items" :key="item.id" class="auction-item">
           <h2>{{ item.name }}</h2>
+          <p>Current Bid: ${{ item.currentBid }}</p>
+          <hr>
           <!-- Slider -->
           <div class="image-slider">
             <img :src="item.images[currentImageIndex(item)]" alt="Auction item" class="auction-image" />
@@ -18,6 +20,48 @@
       </div>
     </div>
 
+
+    <template>
+  <div>
+    <p v-if="loading" class="loading-screen">Loading... Please Wait...</p>
+
+    <div v-else>
+      <p>Auction</p>
+      <div class="auction-grid">
+        <div v-for="item in items" :key="item.id" class="auction-item">
+          <h2>{{ item.name }}</h2>
+          <!-- Image Slider with Click Event for Preview -->
+          <div class="image-slider">
+            <img
+              :src="item.images[currentImageIndex(item)]"
+              alt="Auction item"
+              class="auction-image"
+              @click="openImagePreview(item.images[currentImageIndex(item)])"
+            />
+            <button @click="prevImage(item)" class="prev-btn">&lt;</button>
+            <button @click="nextImage(item)" class="next-btn">&gt;</button>
+          </div>
+          <button @click="openModal(item)">Bid Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <ImagePreviewModal
+      v-if="showImagePreview"
+      :image="previewImage"
+      @close="closeImagePreview"
+    />
+
+    <!-- Modal component for placing a bid -->
+    <AuctionModal
+      v-if="showModal"
+      :item="selectedItem"
+      @close="closeModal"
+      @submit-bid="handleBidSubmit"
+    />
+  </div>
+</template>
     <!-- Modal component for placing a bid -->
     <AuctionModal
       v-if="showModal"
@@ -32,8 +76,32 @@
 import axios from 'axios';
 import AuctionModal from './AuctionModal.vue';
 
-import Temp from "../assets/temp.png"
+//import Temp from "../assets/temp.png"
 
+import CFC_North_1 from "../assets/CFC_North/CFC_North_1.png"
+import CFC_North_2 from "../assets/CFC_North/CFC_North_2.png"
+import CFC_North_3 from "../assets/CFC_North/CFC_North_3.png"
+import CFC_North_4 from "../assets/CFC_North/CFC_North_4.png"
+import CFC_North_5 from "../assets/CFC_North/CFC_North_5.png"
+
+import CFC_Southwest_1 from "../assets/CFC_Southwest/CFC_Southwest_1.png"
+import CFC_Southwest_2 from "../assets/CFC_Southwest/CFC_Southwest_2.png"
+import CFC_Southwest_3 from "../assets/CFC_Southwest/CFC_Southwest_3.png"
+import CFC_Southwest_4 from "../assets/CFC_Southwest/CFC_Southwest_4.png"
+import CFC_Southwest_5 from "../assets/CFC_Southwest/CFC_Southwest_5.png"
+
+import CFC_Southwest2_1 from "../assets/CFC_Southwest_2/CFC_Southwest_2_1.png"
+import CFC_Southwest2_2 from "../assets/CFC_Southwest_2/CFC_Southwest_2_2.png"
+import CFC_Southwest2_3 from "../assets/CFC_Southwest_2/CFC_Southwest_2_3.png"
+import CFC_Southwest2_4 from "../assets/CFC_Southwest_2/CFC_Southwest_2_4.png"
+import CFC_Southwest2_5 from "../assets/CFC_Southwest_2/CFC_Southwest_2_5.png"
+import CFC_Southwest2_6 from "../assets/CFC_Southwest_2/CFC_Southwest_2_6.png"
+
+import CFC_South_1 from "../assets/CFC_South/CFC_South_1.png"
+import CFC_South_2 from "../assets/CFC_South/CFC_South_2.png"
+import CFC_South_3 from "../assets/CFC_South/CFC_South_3.png"
+import CFC_South_4 from "../assets/CFC_South/CFC_South_4.png"
+import CFC_South_5 from "../assets/CFC_South/CFC_South_5.png"
 
 import CFC_HOLD_South_1 from "../assets/CFC-HOLD-South-1.png";
 import CFC_HOLD_South_2 from "../assets/CFC-HOLD-South-2.png";
@@ -50,23 +118,23 @@ export default {
         { 
           id: 1, 
           name:"CFC North",
-          images: [Temp], 
+          images: [CFC_North_1, CFC_North_2, CFC_North_3, CFC_North_4, CFC_North_5], 
           currentBid: 0 
         },
         { 
           id: 2, 
           name:"CFC Southwest",
-          images: [Temp], 
+          images: [CFC_Southwest_1, CFC_Southwest_2, CFC_Southwest_3, CFC_Southwest_4, CFC_Southwest_5], 
           currentBid: 0 
         },
         { id: 3, 
           name:"CFC Southwest 2", 
-          images: [Temp], 
+          images: [CFC_Southwest2_1, CFC_Southwest2_2, CFC_Southwest2_3, CFC_Southwest2_4, CFC_Southwest2_5, CFC_Southwest2_6], 
           currentBid: 0 
         },
         { id: 4, 
           name:"CFC South", 
-          images: [Temp], 
+          images: [CFC_South_1, CFC_South_2, CFC_South_3, CFC_South_4, CFC_South_5], 
           currentBid: 0 
         },
         { id: 5, 
@@ -74,11 +142,13 @@ export default {
         images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], 
         currentBid: 0 
         },
+        /*
         { id: 6, 
           name:"Reserve", 
           images: [Temp], 
           currentBid: 0 
         },
+        */
       ],
       showModal: false,
       selectedItem: null,
@@ -176,7 +246,8 @@ export default {
   padding: 30px; /* Increase padding for larger content boxes */
   text-align: center;
   position: relative;
-  min-height: 600px; /* Increase minimum height for larger boxes */
+  min-height: 800px; /* Increase minimum height for larger boxes */
+  max-width: 900px;
   font-size: 1.2em; /* Increase font size for content */
   display: flex;
   flex-direction: column;
@@ -189,12 +260,10 @@ export default {
 }
 
 .auction-image {
-  width: 150%;
-  height: auto;
-  max-height: 300px; /* Increase max height for images */
+  width: 100%; /* Make the image take full width of the container */
+  height: 500px; /* Increase max height for larger display */
   object-fit: contain;
 }
-
 .image-slider {
   position: relative;
   display: flex;
