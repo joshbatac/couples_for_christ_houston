@@ -205,23 +205,29 @@ export default {
 
 .auction-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns per row */
-  gap: 30px; /* Increase gap between items */
+  grid-template-columns: repeat(2, 1fr); /* 2 columns per row on larger screens */
+  gap: 30px; /* Gap between items */
+}
+
+/* Media query for screens smaller than 768px (typical for phones) */
+@media (max-width: 1024px) {
+  .auction-grid {
+    grid-template-columns: 1fr; /* 1 column per row on smaller screens */
+  }
 }
 
 .auction-item {
   border: 1px solid #ddd;
-  padding: 30px; /* Increase padding for larger content boxes */
+  padding: 30px;
   text-align: center;
   position: relative;
-  min-height: 800px; /* Increase minimum height for larger boxes */
+  min-height: 800px;
   max-width: 900px;
-  font-size: 1.2em; /* Increase font size for content */
+  font-size: 1.2em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
 .auction-item h2 {
   font-size: 2em; /* Increase font size for item name */
   margin-bottom: 20px; /* Add space between name and content */
