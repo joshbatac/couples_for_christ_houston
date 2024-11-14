@@ -75,6 +75,10 @@ import CFC_HOLD_South_1 from "../assets/CFC-HOLD-South-1.png";
 import CFC_HOLD_South_2 from "../assets/CFC-HOLD-South-2.png";
 import CFC_HOLD_South_3 from "../assets/CFC-HOLD-South-3.png";
 
+import CFC_West_1 from "../assets/CFC_West/CFC_West_1.png"
+import CFC_West_2 from "../assets/CFC_West/CFC_West_2.png"
+
+
 export default {
   name: 'AuctionPage',
   components: {
@@ -110,13 +114,13 @@ export default {
         images: [CFC_HOLD_South_1, CFC_HOLD_South_2, CFC_HOLD_South_3], 
         currentBid: 0 
         },
-        /*
+        
         { id: 6, 
-          name:"Reserve", 
-          images: [Temp], 
+          name:"CFC West", 
+          images: [CFC_West_1, CFC_West_2], 
           currentBid: 0 
         },
-        */
+
       ],
       showModal: false,
       selectedItem: null,
@@ -178,7 +182,7 @@ export default {
     },
     fetchLatestBid(itemId) {
       return axios
-        .get(`https://script.google.com/macros/s/AKfycbyzC3pgt3y0gStu_VNk3K5rRYpazVVi9bOF7-5bPkR0m1_mToA_jNqY_04XhZ2MuDqxMA/exec?itemId=${itemId}`)
+        .get(`https://script.google.com/macros/s/AKfycbycVTlaRWZ9C-cPMfm9n7iI8sjcIKbCO4o0MrcuTYMPTdQRyatVNiubIL1uYj7oPy8dqQ/exec?itemId=${itemId}`)
         .then((response) => {
           const latestBid = response.data.latestBid;
           const item = this.items.find((item) => item.id === itemId);
@@ -188,7 +192,6 @@ export default {
         })
         .catch((error) => {
           console.error('Error fetching latest bid:', error);
-          alert('Error fetching latest bid');
         });
     },
   },

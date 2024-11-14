@@ -132,11 +132,11 @@ app.post('/submit-bid', async (req, res) => {
 
     // Mapping item IDs to corresponding Google Sheets tab names
     const sheetNames = {
-      1: 'Item1',
-      2: 'Item2',
-      3: 'Item3',
-      4: 'Item4',
-      5: 'Item5',
+      1: 'CFCNorth',
+      2: 'CFCSouthwest',
+      3: 'CFCSouthwest2',
+      4: 'CFCSouth',
+      5: 'CFCHOLDSouth',
       6: 'Item6'
     };
 
