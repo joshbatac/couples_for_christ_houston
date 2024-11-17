@@ -43,7 +43,7 @@
 
     <div class="announcement content">
       <h2>Welcome to the CFC Lantern Auction - Illuminate Lives with Your Support!</h2>
-      <p>Join us in making a difference by bidding on beautifully crafted lanterns from around the world. Each lantern represents a light of hope and solidarity, supporting our mission to empower families and communities in need. Your participation helps spread the spirit of love, compassion, and service.</p>
+      <p>Join us in making a difference by bidding on beautifully crafted lanterns from the different Household Units in Houston. Each lantern represents a light of hope and solidarity, supporting our mission to empower families and communities in need. Your participation helps spread the spirit of love, compassion, and service. All proceeds will go to ANCOP.</p>
 
       <h3>How It Works:</h3>
       <ul>
@@ -55,7 +55,7 @@
       <p>Every dollar raised through this auction and your generous donations goes towards life-changing programs that uplift communities and foster unity. Together, we can light up the lives of countless individuals and families, bringing warmth and joy where it’s needed most.</p>
 
       <h3>Get Involved - Make a Difference:</h3>
-      <p>Whether you’re bidding on a lantern or making a donation, you’re helping us shine a brighter light on the world. Thank you for your support, and let’s illuminate lives together!</p>
+      <p>Every dollar raised through this auction and your generous donations goes towards life-changing programs through ANCOP that will uplift communities and foster unity. Together, we can light up the lives of countless individuals and families, bringing warmth and joy where it’s needed most.</p>
 
       <p class="has-text-centered">
         <button class="button is-primary"><router-link to="/auction">Bid Now</router-link></button> &nbsp; &nbsp;
@@ -69,7 +69,7 @@
       <div class="modal-content">
         <div class="box">
           <h3 class="title">Make a Donation</h3>
-          <p>Please send your donations to <strong>cfchouston@couplesforchristusa.org</strong> with the auction item (e.g., CFC North) as the memo/subject.</p>
+          <p>Please send your donations via Zelle to <strong>cfchouston@couplesforchristusa.org</strong> or in a form of cash or check payable to CFC Houston with the auction item (e.g., CFC North) as the memo/subject</p>
           <div class="has-text-right">
             <button class="button is-link" @click="closeModal">Close</button>
           </div>
