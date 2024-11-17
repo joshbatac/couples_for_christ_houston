@@ -18,7 +18,6 @@
               :src="item.images[currentImageIndex(item)]"
               alt="Auction item"
               class="auction-image"
-              @click="openImagePreview(item.images[currentImageIndex(item)])"
             />
             <button @click="prevImage(item)" class="prev-btn">&lt;</button>
             <button @click="nextImage(item)" class="next-btn">&gt;</button>
