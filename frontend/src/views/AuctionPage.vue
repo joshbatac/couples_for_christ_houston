@@ -77,6 +77,11 @@ import CFC_HOLD_South_3 from "../assets/CFC-HOLD-South-3.png";
 import CFC_West_1 from "../assets/CFC_West/CFC_West_1.png"
 import CFC_West_2 from "../assets/CFC_West/CFC_West_2.png"
 
+import CFC_South_2_1 from "../assets/CFC_South_2/CFC_South_2_1.png"
+import CFC_South_2_2 from "../assets/CFC_South_2/CFC_South_2_2.png"
+import CFC_South_2_3 from "../assets/CFC_South_2/CFC_South_2_3.png"
+import CFC_South_2_4 from "../assets/CFC_South_2/CFC_South_2_4.png"
+
 
 export default {
   name: 'AuctionPage',
@@ -117,6 +122,12 @@ export default {
         { id: 6, 
           name:"CFC West", 
           images: [CFC_West_1, CFC_West_2], 
+          currentBid: 0 
+        },
+                
+        { id: 7, 
+          name:"CFC South 2", 
+          images: [CFC_South_2_1, CFC_South_2_2, CFC_South_2_3, CFC_South_2_4], 
           currentBid: 0 
         },
 
@@ -181,7 +192,7 @@ export default {
     },
     fetchLatestBid(itemId) {
       return axios
-        .get(`https://script.google.com/macros/s/AKfycbycVTlaRWZ9C-cPMfm9n7iI8sjcIKbCO4o0MrcuTYMPTdQRyatVNiubIL1uYj7oPy8dqQ/exec?itemId=${itemId}`)
+        .get(`https://script.google.com/macros/s/AKfycbxy0VlNrqxUmvpjyU0oM_AoWt01cj92OWBiOsIBV74YZAvGgE5_Q4N9NwTCalB128cgkw/exec?itemId=${itemId}`)
         .then((response) => {
           const latestBid = response.data.latestBid;
           const item = this.items.find((item) => item.id === itemId);

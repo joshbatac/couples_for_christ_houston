@@ -137,7 +137,8 @@ app.post('/submit-bid', async (req, res) => {
       3: 'Item3',
       4: 'Item4',
       5: 'Item5',
-      6: 'Item6'
+      6: 'Item6',
+      7: 'Item7',
     };
 
     const sheetName = sheetNames[itemId];
